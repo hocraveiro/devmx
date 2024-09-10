@@ -1,4 +1,4 @@
-export interface TSConfigLibrary {
+export interface TSConfig {
   extends: string;
   compilerOptions: CompilerOptions;
   files: string[];
@@ -15,6 +15,8 @@ interface CompilerOptions {
   noImplicitReturns: boolean;
   noFallthroughCasesInSwitch: boolean;
   strictPropertyInitialization?: boolean;
+  baseUrl: string;
+  paths: { [key: string]: string[] };
 }
 
 export interface Reference {

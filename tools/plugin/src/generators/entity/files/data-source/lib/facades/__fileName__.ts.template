@@ -1,0 +1,50 @@
+import {
+  <%= className %>,
+  Find<%= classNamePlural %>ServerUseCase,
+  Create<%= className %>ServerUseCase,
+  FindOne<%= className %>ServerUseCase,
+  Update<%= className %>ServerUseCase,
+  Remove<%= className %>ServerUseCase,
+} from '<%= domainPath %>';
+import {
+  Creatable,
+  FindOptions,
+  FindWhere,
+  Updatable,
+} from '@devmx/shared/api-interfaces';
+import { plainToInstance } from 'class-transformer';
+import { <%= className %>Dto } from '../dtos';
+
+export class <%= className %>Facade {
+  constructor(
+    private readonly create<%= className %>UseCase: Create<%= className %>ServerUseCase,
+    private readonly find<%= classNamePlural %>UseCase: Find<%= classNamePlural %>ServerUseCase,
+    private readonly findOne<%= className %>UseCase: FindOne<%= className %>ServerUseCase,
+    private readonly update<%= className %>UseCase: Update<%= className %>ServerUseCase,
+    private readonly remove<%= className %>UseCase: Remove<%= className %>ServerUseCase
+  ) {}
+
+  async create(data: Creatable<<%= className %>>) {
+    const account = await this.create<%= className %>UseCase.execute(data);
+    return plainToInstance(<%= className %>Dto, account);
+  }
+
+  async find(options: FindOptions<<%= className %>>) {
+    const { meta, data } = await this.find<%= classNamePlural %>UseCase.execute(options);
+    return { meta, data: plainToInstance(<%= className %>Dto, data) };
+  }
+
+  async findOne(data: FindWhere<<%= className %>>) {
+    const account = await this.findOne<%= className %>UseCase.execute(data);
+    return plainToInstance(<%= className %>Dto, account);
+  }
+
+  async update(data: Updatable<<%= className %>>) {
+    const account = await this.update<%= className %>UseCase.execute(data);
+    return plainToInstance(<%= className %>Dto, account);
+  }
+
+  remove(id: string) {
+    return this.remove<%= className %>UseCase.execute(id);
+  }
+}

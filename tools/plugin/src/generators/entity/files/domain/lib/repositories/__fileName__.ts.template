@@ -1,0 +1,32 @@
+import {
+  Page,
+  FindWhere,
+  Creatable,
+  Updatable,
+  FindOptions,
+  FindRepository,
+  CreateRepository,
+  FindOneRepository,
+  UpdateRepository,
+  RemoveRepository,
+} from '@devmx/shared/api-interfaces';
+import { <%= className %> } from '../entities';
+
+export abstract class <%= className %>Repository
+  implements
+    CreateRepository<<%= className %>>,
+    FindRepository<<%= className %>>,
+    FindOneRepository<<%= className %>>,
+    UpdateRepository<<%= className %>>,
+    RemoveRepository
+{
+  abstract create(data: Creatable<<%= className %>>): Promise<<%= className %>>;
+
+  abstract find(options: FindOptions<<%= className %>>): Promise<Page<<%= className %>>>;
+
+  abstract findOne(where: FindWhere<<%= className %>>): Promise<<%= className %> | null>;
+
+  abstract update(data: Updatable<<%= className %>>): Promise<<%= className %> | null>;
+
+  abstract remove(id: string): Promise<void>;
+}

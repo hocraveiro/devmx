@@ -1,0 +1,5 @@
+export * from './create-<%= fileName %>';
+export * from './find-<%= fileNamePlural %>';
+export * from './find-one-<%= fileName %>';
+export * from './update-<%= fileName %>';
+export * from './remove-<%= fileName %>';

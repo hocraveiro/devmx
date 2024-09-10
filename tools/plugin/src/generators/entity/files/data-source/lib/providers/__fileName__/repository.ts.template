@@ -1,0 +1,23 @@
+import { <%= className %>Repository } from '<%= domainPath %>';
+import { <%= className %>Entity } from '../../entities';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Type } from '@devmx/shared/api-interfaces';
+import { Repository } from 'typeorm';
+
+
+export function provide<%= className %>Repository(Repository: Type<<%= className %>Repository>) {
+  return {
+    provide: <%= className %>Repository,
+    useFactory(repository: Repository<<%= className %>Entity>) {
+      return new Repository(repository);
+    },
+    inject: [getRepositoryToken(<%= className %>Entity)],
+  };
+}
+
+export function provide<%= className %>RepositoryTest(Repository: <%= className %>Repository) {
+  return {
+    provide: <%= className %>Repository,
+    useValue: Repository,
+  };
+}

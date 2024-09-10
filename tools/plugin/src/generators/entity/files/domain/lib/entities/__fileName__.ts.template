@@ -1,0 +1,5 @@
+import { Entity } from "@devmx/shared/api-interfaces";
+
+export interface <%= className %> extends Entity {
+  name: string
+}

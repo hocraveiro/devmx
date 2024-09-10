@@ -1,0 +1,10 @@
+import { UseCase } from '@devmx/shared/api-interfaces';
+import { <%= className %>Repository } from '../../../repositories';
+
+export class Remove<%= className %>ServerUseCase implements UseCase<string, void> {
+  constructor(private readonly repository: <%= className %>Repository) {}
+
+  async execute(id: string) {
+    return this.repository.remove(id);
+  }
+}

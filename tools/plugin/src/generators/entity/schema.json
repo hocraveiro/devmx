@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "Entity",
+  "title": "Create entity to layers",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain name.",
+      "x-prompt": "What is the name of the domain project?",
+      "pattern": "(?:^@[a-zA-Z0-9-*~][a-zA-Z0-9-*._~]*\\/[a-zA-Z0-9-~][a-zA-Z0-9-._~]*|^[a-zA-Z][^:]*)$"
+    },
+    "dataSource": {
+      "type": "string",
+      "description": "Data Source name.",
+      "x-prompt": "What is the name of the data-source project?",
+      "pattern": "(?:^@[a-zA-Z0-9-*~][a-zA-Z0-9-*._~]*\\/[a-zA-Z0-9-~][a-zA-Z0-9-._~]*|^[a-zA-Z][^:]*)$"
+    },
+    "resource": {
+      "type": "string",
+      "description": "Resource name.",
+      "x-prompt": "What is the name of the resource project?"
+    }
+  },
+  "required": ["name", "domain", "dataSource"]
+}

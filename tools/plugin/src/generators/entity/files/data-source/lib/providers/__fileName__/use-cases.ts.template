@@ -1,0 +1,58 @@
+import {
+  <%= className %>Repository,
+  Find<%= classNamePlural %>ServerUseCase,
+  FindOne<%= className %>ServerUseCase,
+  Update<%= className %>ServerUseCase,
+  Remove<%= className %>ServerUseCase,
+  Create<%= className %>ServerUseCase
+} from '<%= domainPath %>';
+
+export function provideCreate<%= className %>ServerUseCase() {
+  return {
+    provide: Create<%= className %>ServerUseCase,
+    useFactory(account: <%= className %>Repository) {
+      return new Create<%= className %>ServerUseCase(account);
+    },
+    inject: [<%= className %>Repository],
+  };
+}
+
+export function provideFind<%= classNamePlural %>ServerUseCase() {
+  return {
+    provide: Find<%= classNamePlural %>ServerUseCase,
+    useFactory(repository: <%= className %>Repository) {
+      return new Find<%= classNamePlural %>ServerUseCase(repository);
+    },
+    inject: [<%= className %>Repository],
+  };
+}
+
+export function provideFindOne<%= className %>ServerUseCase() {
+  return {
+    provide: FindOne<%= className %>ServerUseCase,
+    useFactory(repository: <%= className %>Repository) {
+      return new FindOne<%= className %>ServerUseCase(repository);
+    },
+    inject: [<%= className %>Repository],
+  };
+}
+
+export function provideUpdate<%= className %>ServerUseCase() {
+  return {
+    provide: Update<%= className %>ServerUseCase,
+    useFactory(repository: <%= className %>Repository) {
+      return new Update<%= className %>ServerUseCase(repository);
+    },
+    inject: [<%= className %>Repository],
+  };
+}
+
+export function provideRemove<%= className %>ServerUseCase() {
+  return {
+    provide: Remove<%= className %>ServerUseCase,
+    useFactory(repository: <%= className %>Repository) {
+      return new Remove<%= className %>ServerUseCase(repository);
+    },
+    inject: [<%= className %>Repository],
+  };
+}

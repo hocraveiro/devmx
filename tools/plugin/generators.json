@@ -14,6 +14,11 @@
       "factory": "./src/generators/resource/generator",
       "schema": "./src/generators/resource/schema.json",
       "description": "Create a resource layer"
+    },
+    "entity": {
+      "factory": "./src/generators/entity/generator",
+      "schema": "./src/generators/entity/schema.json",
+      "description": "Create entity to layers"
     }
   }
 }

@@ -8,7 +8,7 @@ import {
 } from '@nx/devkit';
 import libraryGenerator from '@nx/js/src/generators/library/library';
 import { DataSourceGeneratorSchema } from './schema';
-import { TSConfigLibrary } from '../../interfaces';
+import { TSConfig } from '../../interfaces';
 import { updateDevMXJson } from '../../utils';
 import { normalizeSchema } from './lib';
 import { join } from 'path';
@@ -29,7 +29,7 @@ export async function dataSourceGenerator(
   const { sourceRoot } = readProjectConfiguration(tree, normalizedSchema.name);
 
   const projectRoot = join(sourceRoot, '..');
-  updateJson<TSConfigLibrary>(tree, `${projectRoot}/tsconfig.json`, (value) => {
+  updateJson<TSConfig>(tree, `${projectRoot}/tsconfig.json`, (value) => {
     value.compilerOptions['strictPropertyInitialization'] = false;
     return value;
   });

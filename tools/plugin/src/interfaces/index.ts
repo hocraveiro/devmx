@@ -1,2 +1,2 @@
 export * from './dev-mx-json';
-export * from './ts-config-library';
+export * from './ts-config';

@@ -1,0 +1,89 @@
+import {
+  Body,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Delete,
+  Controller,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
+  ApiPaginatedResponse,
+  PageOptionsDto,
+} from '@devmx/shared/data-source';
+import {
+  <%= className %>Dto,
+  <%= className %>Facade,
+  Create<%= className %>Dto,
+  Update<%= className %>Dto,
+} from '<%= dataSourcePath %>';
+
+@ApiTags('<%= className %>')
+@Controller('<%= propertyNamePlural %>')
+export class <%= classNamePlural %>Controller {
+  constructor(private readonly <%= propertyName %>Facade: <%= className %>Facade) {}
+
+  @Get()
+  @ApiPaginatedResponse(<%= className %>Dto)
+  async find(@Query() page: PageOptionsDto) {
+    return this.<%= propertyName %>Facade.find({ page });
+  }
+
+  @Get(':id')
+  @ApiOkResponse({ description: '<%= className %> encontrada' })
+  @ApiNotFoundResponse({ description: '<%= className %> não encontrada' })
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.<%= propertyName %>Facade.findOne({ id });
+    } catch (err) {
+      throw new NotFoundException(err);
+    }
+  }
+
+  @Post()
+  @ApiCreatedResponse({ description: '<%= className %> criada com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
+  async create(@Body() create<%= className %>: Create<%= className %>Dto) {
+    try {
+      return await this.<%= propertyName %>Facade.create(create<%= className %>);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({ description: '<%= className %> alterada com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao alterar conta' })
+  async update(@Param('id') id: string, @Body() data: Update<%= className %>Dto) {
+    try {
+      return await this.<%= propertyName %>Facade.update({ ...data, id });
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({ description: '<%= className %> apagada' })
+  @ApiNotFoundResponse({ description: '<%= className %> não encontrada' })
+  @ApiBadRequestResponse({ description: 'Problema ao apagar conta' })
+  async delete(@Param('id') id: string) {
+    const <%= propertyName %> = await this.<%= propertyName %>Facade.findOne({ id });
+    if (!<%= propertyName %>) throw new NotFoundException();
+
+    try {
+      return await this.<%= propertyName %>Facade.remove(id);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+import { Creatable, UseCase } from '@devmx/shared/api-interfaces';
+import { <%= className %>Repository } from '../../../repositories';
+import { <%= className %> } from '../../../entities';
+
+export class Create<%= className %>ServerUseCase
+  implements UseCase<Creatable<<%= className %>>, <%= className %>>
+{
+  constructor(private readonly repository: <%= className %>Repository) {}
+
+  async execute(data: Creatable<<%= className %>>) {
+    return this.repository.create(data);
+  }
+}

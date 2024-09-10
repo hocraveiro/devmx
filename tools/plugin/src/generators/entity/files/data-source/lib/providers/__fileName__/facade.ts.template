@@ -1,0 +1,36 @@
+import { <%= className %>Facade } from '../../facades';
+import {
+  Create<%= className %>ServerUseCase,
+  Find<%= classNamePlural %>ServerUseCase,
+  FindOne<%= className %>ServerUseCase,
+  Remove<%= className %>ServerUseCase,
+  Update<%= className %>ServerUseCase,
+} from '<%= domainPath %>';
+
+export function provide<%= className %>ServerFacade() {
+  return {
+    provide: <%= className %>Facade,
+    useFactory(
+      create<%= className %>: Create<%= className %>ServerUseCase,
+      find<%= classNamePlural %>: Find<%= classNamePlural %>ServerUseCase,
+      findOne<%= className %>: FindOne<%= className %>ServerUseCase,
+      update<%= className %>: Update<%= className %>ServerUseCase,
+      remove<%= className %>: Remove<%= className %>ServerUseCase
+    ) {
+      return new <%= className %>Facade(
+        create<%= className %>,
+        find<%= classNamePlural %>,
+        findOne<%= className %>,
+        update<%= className %>,
+        remove<%= className %>
+      );
+    },
+    inject: [
+      Create<%= className %>ServerUseCase,
+      Find<%= classNamePlural %>ServerUseCase,
+      FindOne<%= className %>ServerUseCase,
+      Update<%= className %>ServerUseCase,
+      Remove<%= className %>ServerUseCase,
+    ],
+  };
+}
