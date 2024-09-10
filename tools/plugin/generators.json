@@ -4,6 +4,16 @@
       "factory": "./src/generators/domain/generator",
       "schema": "./src/generators/domain/schema.json",
       "description": "Create a domain layer"
+    },
+    "data-source": {
+      "factory": "./src/generators/data-source/generator",
+      "schema": "./src/generators/data-source/schema.json",
+      "description": "Create a data-source layer"
+    },
+    "resource": {
+      "factory": "./src/generators/resource/generator",
+      "schema": "./src/generators/resource/schema.json",
+      "description": "Create a resource layer"
     }
   }
 }

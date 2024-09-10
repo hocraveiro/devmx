@@ -1,10 +1,10 @@
 import { Linter } from '@nx/eslint';
+import { names } from '@nx/devkit';
+import { join } from 'node:path';
 import {
   DomainGeneratorSchema,
   NormalizedDomainGeneratorSchema,
 } from '../schema';
-import { join } from 'node:path';
-import { names } from '@nx/devkit';
 
 export function normalizeSchema(
   schema: DomainGeneratorSchema
@@ -18,6 +18,7 @@ export function normalizeSchema(
   return {
     ...schema,
     directory,
+    name: `${fileName}-domain`,
     importPath: `@devmx/${fileName}/domain`,
     projectNameAndRootFormat: 'as-provided',
     tags: 'type:domain',

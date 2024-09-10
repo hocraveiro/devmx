@@ -1,0 +1,7 @@
+import { NestProvider } from '@devmx/shared/api-interfaces';
+
+export const dataSource<%= className %>Providers: NestProvider[] = [
+]
+
+export const dataSource<%= className %>Entities = [
+]
