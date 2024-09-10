@@ -11,7 +11,7 @@ import {
   FindOptions,
   FindWhere,
   Updatable,
-} from '@devmx/shared/api-interfaces';
+} from '@devmx/shared-api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { <%= className %>Dto } from '../dtos';
 

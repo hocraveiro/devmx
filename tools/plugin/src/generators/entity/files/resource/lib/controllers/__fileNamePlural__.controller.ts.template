@@ -20,7 +20,7 @@ import {
 import {
   ApiPaginatedResponse,
   PageOptionsDto,
-} from '@devmx/shared/data-source';
+} from '@devmx/shared-data-source';
 import {
   <%= className %>Dto,
   <%= className %>Facade,

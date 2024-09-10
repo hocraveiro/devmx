@@ -1,4 +1,4 @@
-import { Page } from '@devmx/shared/api-interfaces';
+import { Page } from '@devmx/shared-api-interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 import { PageMetaDto } from './page-meta';
 import { IsArray } from 'class-validator';

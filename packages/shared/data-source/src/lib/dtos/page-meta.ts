@@ -1,4 +1,4 @@
-import { PageMeta, PageMetaOptions } from '@devmx/shared/api-interfaces';
+import { PageMeta, PageMetaOptions } from '@devmx/shared-api-interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PageMetaDto implements PageMeta {

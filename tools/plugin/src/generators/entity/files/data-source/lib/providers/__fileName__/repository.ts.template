@@ -1,7 +1,7 @@
 import { <%= className %>Repository } from '<%= domainPath %>';
 import { <%= className %>Entity } from '../../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Type } from '@devmx/shared/api-interfaces';
+import { Type } from '@devmx/shared-api-interfaces';
 import { Repository } from 'typeorm';
 
 

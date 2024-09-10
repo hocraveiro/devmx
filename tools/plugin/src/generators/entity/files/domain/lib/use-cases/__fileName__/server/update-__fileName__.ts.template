@@ -1,4 +1,4 @@
-import { Updatable, UseCase } from '@devmx/shared/api-interfaces';
+import { Updatable, UseCase } from '@devmx/shared-api-interfaces';
 import { <%= className %>Repository } from '../../../repositories';
 import { <%= className %> } from '../../../entities';
 

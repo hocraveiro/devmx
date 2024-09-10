@@ -1,4 +1,4 @@
-import { PageOptions } from '../pagination';
+import { PageOptions } from '../pagination/page-options';
 import { FindWhere } from './find-where';
 
 export interface FindOptions<T> {

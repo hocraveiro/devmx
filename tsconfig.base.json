@@ -16,10 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@devmx/plugin": ["tools/plugin/src/index.ts"],
-      "@devmx/shared/api-interfaces": [
+      "@devmx/shared-api-interfaces": [
         "packages/shared/api-interfaces/src/index.ts"
       ],
-      "@devmx/shared/data-source": ["packages/shared/data-source/src/index.ts"]
+      "@devmx/shared-data-source": ["packages/shared/data-source/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

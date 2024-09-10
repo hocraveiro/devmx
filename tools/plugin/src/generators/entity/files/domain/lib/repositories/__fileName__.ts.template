@@ -9,7 +9,7 @@ import {
   FindOneRepository,
   UpdateRepository,
   RemoveRepository,
-} from '@devmx/shared/api-interfaces';
+} from '@devmx/shared-api-interfaces';
 import { <%= className %> } from '../entities';
 
 export abstract class <%= className %>Repository

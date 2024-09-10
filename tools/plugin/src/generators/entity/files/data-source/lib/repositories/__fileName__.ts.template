@@ -1,4 +1,4 @@
-import { PageDto, PageMetaDto } from '@devmx/shared/data-source';
+import { PageDto, PageMetaDto } from '@devmx/shared-data-source';
 import { <%= className %>Repository } from '<%= domainPath %>';
 import { <%= className %>Entity } from '../entities';
 import { Repository } from 'typeorm';
@@ -7,7 +7,7 @@ import {
   FindOptions,
   Updatable,
   Creatable,
-} from '@devmx/shared/api-interfaces';
+} from '@devmx/shared-api-interfaces';
 
 export class <%= className %>RepositoryImpl implements <%= className %>Repository {
   constructor(private readonly repository: Repository<<%= className %>Entity>) {}

@@ -1,4 +1,4 @@
-import { Creatable } from '@devmx/shared/api-interfaces';
+import { Creatable } from '@devmx/shared-api-interfaces';
 import { <%= className %>Entity } from '../entities';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';

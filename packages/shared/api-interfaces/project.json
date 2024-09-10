@@ -15,12 +15,8 @@
         "assets": ["packages/shared/api-interfaces/*.md"]
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/shared/api-interfaces/jest.config.ts"
-      }
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }

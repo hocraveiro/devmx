@@ -1,4 +1,4 @@
-import { Updatable } from '@devmx/shared/api-interfaces';
+import { Updatable } from '@devmx/shared-api-interfaces';
 import { <%= className %> } from '../entities';
 
 export type Update<%= className %> = Updatable<<%= className %>>

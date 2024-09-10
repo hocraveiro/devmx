@@ -1,4 +1,4 @@
-import { UseCase } from '@devmx/shared/api-interfaces';
+import { UseCase } from '@devmx/shared-api-interfaces';
 import { <%= className %>Repository } from '../../../repositories';
 
 export class Remove<%= className %>ServerUseCase implements UseCase<string, void> {

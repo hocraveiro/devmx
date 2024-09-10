@@ -1,4 +1,4 @@
-import { NestProvider } from '@devmx/shared/api-interfaces';
+import { NestProvider } from '@devmx/shared-api-interfaces';
 import { EnvServer } from './ports';
 
 export function provideEnvServer(value: EnvServer): NestProvider {
