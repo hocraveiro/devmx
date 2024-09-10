@@ -1,0 +1,19 @@
+{
+  "name": "events-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/events/api/src",
+  "projectType": "library",
+  "tags": ["type:api", "scope:events"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/events/api",
+        "main": "packages/events/api/src/index.ts",
+        "tsConfig": "packages/events/api/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

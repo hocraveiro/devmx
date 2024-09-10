@@ -15,11 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@devmx/account-api": ["packages/account/api/src/index.ts"],
       "@devmx/account-data-source": [
         "packages/account/data-source/src/index.ts"
       ],
       "@devmx/account-domain": ["packages/account/domain/src/index.ts"],
       "@devmx/account-resource": ["packages/account/resource/src/index.ts"],
+      "@devmx/events-api": ["packages/events/api/src/index.ts"],
+      "@devmx/events-data-source": ["packages/events/data-source/src/index.ts"],
+      "@devmx/events-domain": ["packages/events/domain/src/index.ts"],
+      "@devmx/events-resource": ["packages/events/resource/src/index.ts"],
       "@devmx/plugin": ["tools/plugin/src/index.ts"],
       "@devmx/shared-api-interfaces": [
         "packages/shared/api-interfaces/src/index.ts"

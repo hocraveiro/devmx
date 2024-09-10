@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/account/resource/src",
   "projectType": "library",
-  "tags": ["type:resource"],
+  "tags": ["type:resource", "scope:account"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

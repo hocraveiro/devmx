@@ -1,5 +1,7 @@
 import { dataSourceAccountEntities } from '@devmx/account-data-source';
+import { dataSourceEventsEntities } from '@devmx/events-data-source';
 import { AccountResourceModule } from '@devmx/account-resource';
+import { EventsResourceModule } from '@devmx/events-resource';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 
@@ -16,11 +18,12 @@ import { env } from '../envs/env';
       username: 'root',
       password: env.db.password,
       database: env.db.name,
-      entities: [...dataSourceAccountEntities],
+      entities: [...dataSourceAccountEntities, ...dataSourceEventsEntities],
       synchronize: true,
       logging: 'all',
     }),
-    AccountResourceModule
+    AccountResourceModule,
+    EventsResourceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

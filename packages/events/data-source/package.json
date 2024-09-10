@@ -1,0 +1,21 @@
+{
+  "name": "@devmx/events-data-source",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@devmx/shared-api-interfaces": "0.0.1",
+    "@nestjs/swagger": "^7.4.0",
+    "class-validator": "^0.14.1",
+    "@devmx/events-domain": "0.0.1",
+    "@nestjs/mapped-types": "^2.0.5",
+    "typeorm": "^0.3.20",
+    "class-transformer": "^0.5.1",
+    "@nestjs/typeorm": "^10.0.2",
+    "@devmx/shared-data-source": "0.0.1",
+    "@devmx/account-api": "0.0.1"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}

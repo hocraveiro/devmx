@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
+import { PresentationEntity } from './presentation';
 
 @Entity()
 export class AccountEntity implements Account {
@@ -14,6 +16,9 @@ export class AccountEntity implements Account {
 
   @Column({ nullable: false })
   name: string;
+
+  @OneToMany(() => PresentationEntity, (presentation) => presentation.account)
+  presentations: PresentationEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

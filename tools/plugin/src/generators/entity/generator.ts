@@ -70,26 +70,26 @@ export async function entityGenerator(
     output.colors.gray`provide${normalizedSchema.className}Repository` +
       output.colors.white`(` +
       output.colors.green`${normalizedSchema.className}RepositoryImpl` +
-      output.colors.white`)`,
+      output.colors.white`)` + output.colors.gray`,`,
 
     output.colors
       .gray`provideCreate${normalizedSchema.className}ServerUseCase` +
-      output.colors.white`()`,
+      output.colors.white`()` + output.colors.gray`,`,
 
     output.colors.gray`provideFind${normalizedSchema.className}ServerUseCase` +
-      output.colors.white`()`,
+      output.colors.white`()` + output.colors.gray`,`,
 
     output.colors.gray`provideFindOne${normalizedSchema.className}ServerUseCase` +
-      output.colors.white`()`,
+      output.colors.white`()` + output.colors.gray`,`,
 
     output.colors.gray`provideUpdate${normalizedSchema.className}ServerUseCase` +
-      output.colors.white`()`,
+      output.colors.white`()` + output.colors.gray`,`,
 
     output.colors.gray`provideRemove${normalizedSchema.className}ServerUseCase` +
-      output.colors.white`()`,
+      output.colors.white`()` + output.colors.gray`,`,
 
     output.colors.gray`provide${normalizedSchema.className}ServerFacade` +
-      output.colors.white`()`,
+      output.colors.white`()` + output.colors.gray`,`,
   ];
 
   output.addVerticalSeparator();

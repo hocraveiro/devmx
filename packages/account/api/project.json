@@ -1,0 +1,19 @@
+{
+  "name": "account-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/account/api/src",
+  "projectType": "library",
+  "tags": ["type:api"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/account/api",
+        "main": "packages/account/api/src/index.ts",
+        "tsConfig": "packages/account/api/tsconfig.lib.json",
+        "assets": []
+      }
+    }
+  }
+}

@@ -15,6 +15,22 @@
           "config": "packages/account/resource/project.json"
         }
       }
+    },
+    "events-domain": {
+      "name": "events-domain",
+      "config": "packages/events/domain/project.json",
+      "dataSources": {
+        "events-data-source": {
+          "name": "events-data-source",
+          "config": "packages/events/data-source/project.json"
+        }
+      },
+      "resources": {
+        "events-resource": {
+          "name": "events-resource",
+          "config": "packages/events/resource/project.json"
+        }
+      }
     }
   }
 }
