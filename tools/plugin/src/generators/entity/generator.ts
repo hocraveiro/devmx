@@ -1,4 +1,9 @@
-import { Tree, formatFiles, readProjectConfiguration } from '@nx/devkit';
+import {
+  Tree,
+  formatFiles,
+  readProjectConfiguration,
+  output,
+} from '@nx/devkit';
 import { readImportPath, writeBarrel } from '../../utils';
 import { EntityGeneratorSchema } from './schema';
 import { join } from 'path';
@@ -60,6 +65,35 @@ export async function entityGenerator(
   }
 
   await formatFiles(tree);
+
+  const providers = [
+    output.colors.gray`provide${normalizedSchema.className}Repository` +
+      output.colors.white`(` +
+      output.colors.green`${normalizedSchema.className}RepositoryImpl` +
+      output.colors.white`)`,
+
+    output.colors
+      .gray`provideCreate${normalizedSchema.className}ServerUseCase` +
+      output.colors.white`()`,
+
+    output.colors.gray`provideFind${normalizedSchema.className}ServerUseCase` +
+      output.colors.white`()`,
+
+    output.colors.gray`provideFindOne${normalizedSchema.className}ServerUseCase` +
+      output.colors.white`()`,
+
+    output.colors.gray`provideUpdate${normalizedSchema.className}ServerUseCase` +
+      output.colors.white`()`,
+
+    output.colors.gray`provideRemove${normalizedSchema.className}ServerUseCase` +
+      output.colors.white`()`,
+
+    output.colors.gray`provide${normalizedSchema.className}ServerFacade` +
+      output.colors.white`()`,
+  ];
+
+  output.addVerticalSeparator();
+  output.note({ title: 'Providers:', bodyLines: providers });
 }
 
 export default entityGenerator;
