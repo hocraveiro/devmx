@@ -1,0 +1,26 @@
+{
+  "name": "account-data-source",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/account/data-source/src",
+  "projectType": "library",
+  "tags": ["type:data-source"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/account/data-source",
+        "main": "packages/account/data-source/src/index.ts",
+        "tsConfig": "packages/account/data-source/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/account/data-source/jest.config.ts"
+      }
+    }
+  }
+}

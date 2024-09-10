@@ -1,3 +1,20 @@
 {
-  "domains": {}
+  "domains": {
+    "account-domain": {
+      "name": "account-domain",
+      "config": "packages/account/domain/project.json",
+      "dataSources": {
+        "account-data-source": {
+          "name": "account-data-source",
+          "config": "packages/account/data-source/project.json"
+        }
+      },
+      "resources": {
+        "account-resource": {
+          "name": "account-resource",
+          "config": "packages/account/resource/project.json"
+        }
+      }
+    }
+  }
 }
