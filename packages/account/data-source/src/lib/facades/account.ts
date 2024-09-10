@@ -5,7 +5,7 @@ import {
   FindOneAccountServerUseCase,
   UpdateAccountServerUseCase,
   RemoveAccountServerUseCase,
-} from '@devmx/account/domain';
+} from '@devmx/account-domain';
 import {
   Creatable,
   FindOptions,

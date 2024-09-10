@@ -5,7 +5,7 @@ import {
   FindOneAccountServerUseCase,
   RemoveAccountServerUseCase,
   UpdateAccountServerUseCase,
-} from '@devmx/account/domain';
+} from '@devmx/account-domain';
 
 export function provideAccountServerFacade() {
   return {

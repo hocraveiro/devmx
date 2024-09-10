@@ -1,4 +1,4 @@
-import { Account } from '@devmx/account-domain';
+import { Presentation } from '@devmx/account-domain';
 import {
   Column,
   Entity,
@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class AccountEntity implements Account {
+export class PresentationEntity implements Presentation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

@@ -19,7 +19,7 @@ export function normalizeSchema(
 
   const domain = schema.domain.replace(/-domain/, '');
 
-  const importPath = `@devmx/${domain}/${fileName}`;
+  const importPath = `@devmx/${domain}-${fileName}`;
 
   return {
     domain,

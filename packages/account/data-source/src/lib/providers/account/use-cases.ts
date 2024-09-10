@@ -5,7 +5,7 @@ import {
   UpdateAccountServerUseCase,
   RemoveAccountServerUseCase,
   CreateAccountServerUseCase,
-} from '@devmx/account/domain';
+} from '@devmx/account-domain';
 
 export function provideCreateAccountServerUseCase() {
   return {

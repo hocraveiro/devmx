@@ -1,4 +1,4 @@
-import { AccountRepository } from '@devmx/account/domain';
+import { AccountRepository } from '@devmx/account-domain';
 import { AccountEntity } from '../../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Type } from '@devmx/shared-api-interfaces';

@@ -1,7 +1,7 @@
-import { Account } from '@devmx/account-domain';
+import { Presentation } from '@devmx/account-domain';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class AccountDto implements Account {
+export class PresentationDto implements Presentation {
   @ApiProperty()
   id: string;
 

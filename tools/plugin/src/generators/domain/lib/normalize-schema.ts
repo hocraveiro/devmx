@@ -19,7 +19,7 @@ export function normalizeSchema(
     ...schema,
     directory,
     name: `${fileName}-domain`,
-    importPath: `@devmx/${fileName}/domain`,
+    importPath: `@devmx/${fileName}-domain`,
     projectNameAndRootFormat: 'as-provided',
     tags: 'type:domain',
     linter: Linter.EsLint,

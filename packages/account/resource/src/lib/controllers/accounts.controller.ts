@@ -26,7 +26,7 @@ import {
   AccountFacade,
   CreateAccountDto,
   UpdateAccountDto,
-} from '@devmx/account/data-source';
+} from '@devmx/account-data-source';
 
 @ApiTags('Account')
 @Controller('accounts')

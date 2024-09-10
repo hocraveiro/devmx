@@ -1,7 +1,27 @@
 import { NestProvider } from '@devmx/shared-api-interfaces';
-import { AccountEntity } from './entities';
-import { provideAccountRepository, provideAccountServerFacade, provideCreateAccountServerUseCase, provideFindAccountsServerUseCase, provideFindOneAccountServerUseCase, provideRemoveAccountServerUseCase, provideUpdateAccountServerUseCase } from './providers/account';
-import { AccountRepositoryImpl } from './repositories';
+import { AccountEntity, PresentationEntity } from './entities';
+import {
+  provideAccountRepository,
+  provideAccountServerFacade,
+  provideCreateAccountServerUseCase,
+  provideFindAccountsServerUseCase,
+  provideFindOneAccountServerUseCase,
+  provideRemoveAccountServerUseCase,
+  provideUpdateAccountServerUseCase,
+} from './providers/account';
+import {
+  AccountRepositoryImpl,
+  PresentationRepositoryImpl,
+} from './repositories';
+import {
+  provideCreatePresentationServerUseCase,
+  provideFindOnePresentationServerUseCase,
+  provideFindPresentationsServerUseCase,
+  providePresentationRepository,
+  providePresentationServerFacade,
+  provideRemovePresentationServerUseCase,
+  provideUpdatePresentationServerUseCase,
+} from './providers/presentation';
 
 export const dataSourceAccountProviders: NestProvider[] = [
   provideAccountRepository(AccountRepositoryImpl),
@@ -13,6 +33,14 @@ export const dataSourceAccountProviders: NestProvider[] = [
   provideRemoveAccountServerUseCase(),
 
   provideAccountServerFacade(),
+
+  providePresentationRepository(PresentationRepositoryImpl),
+  provideCreatePresentationServerUseCase(),
+  provideFindPresentationsServerUseCase(),
+  provideFindOnePresentationServerUseCase(),
+  provideUpdatePresentationServerUseCase(),
+  provideRemovePresentationServerUseCase(),
+  providePresentationServerFacade(),
 ];
 
-export const dataSourceAccountEntities = [AccountEntity];
+export const dataSourceAccountEntities = [AccountEntity, PresentationEntity];

@@ -1,5 +1,5 @@
-import { dataSourceAccountEntities } from '@devmx/account/data-source';
-import { AccountResourceModule } from '@devmx/account/resource';
+import { dataSourceAccountEntities } from '@devmx/account-data-source';
+import { AccountResourceModule } from '@devmx/account-resource';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 
