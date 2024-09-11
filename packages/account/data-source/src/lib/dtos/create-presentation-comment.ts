@@ -9,7 +9,7 @@ export class CreatePresentationCommentDto
 {
   @IsString()
   @ApiProperty()
-  name: string;
+  message: string;
 
   presentation: PresentationDto
 }

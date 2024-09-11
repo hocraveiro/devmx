@@ -1,14 +1,15 @@
-import { PresentationLike } from '@devmx/account-domain';
-import { ApiProperty } from '@nestjs/swagger';
+import { PresentationReaction } from '@devmx/account-domain';
+import { ReactionType } from '@devmx/shared-api-interfaces';
 import { PresentationDto } from './presentation';
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
-export class PresentationLikeDto implements PresentationLike {
+export class PresentationReactionDto implements PresentationReaction {
   @ApiProperty()
   id: string;
 
   @ApiProperty()
-  name: string;
+  type: ReactionType;
 
   @ApiProperty()
   @Type(() => PresentationDto)

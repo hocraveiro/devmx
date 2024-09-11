@@ -1,5 +1,5 @@
-import { UseCase } from '@devmx/shared-api-interfaces';
 import { PresentationCommentRepository } from '../../../repositories';
+import { UseCase } from '@devmx/shared-api-interfaces';
 
 export class RemovePresentationCommentServerUseCase
   implements UseCase<string, void>

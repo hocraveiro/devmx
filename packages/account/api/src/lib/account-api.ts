@@ -1,16 +1,16 @@
 export {
   AccountDto,
   PresentationDto,
-  PresentationLikeDto,
+  PresentationReactionDto,
   PresentationCommentDto,
   AccountEntity,
   PresentationEntity,
-  PresentationLikeEntity,
+  PresentationReactionEntity,
   PresentationCommentEntity,
 } from '@devmx/account-data-source';
 export {
   Account,
   Presentation,
   PresentationComment,
-  PresentationLike,
+  PresentationReaction,
 } from '@devmx/account-domain';

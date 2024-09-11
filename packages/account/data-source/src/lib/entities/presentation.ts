@@ -1,33 +1,54 @@
-import { AccountEntity } from './account';
+import { PresentationFormat } from '@devmx/shared-api-interfaces';
 import { PresentationCommentEntity } from './presentation-comment';
-import { PresentationLikeEntity } from './presentation-like';
+import { PresentationReactionEntity } from './presentation-reaction';
 import { Presentation } from '@devmx/account-domain';
+import { AccountEntity } from './account';
 import {
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  ManyToOne,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'presentation' })
 export class PresentationEntity implements Presentation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ nullable: false })
-  name: string;
+  title: string;
 
-  @ManyToOne(() => AccountEntity, (account) => account.presentations)
+  @Column()
+  description: string;
+
+  @Column({
+    type: 'enum',
+    enum: ['talk', 'workshop', 'webinar'],
+    default: 'talk',
+  })
+  format: PresentationFormat;
+
+  @Column('simple-array')
+  tags: string[];
+
+  @Column('simple-array')
+  resources: string[];
+
+  @ManyToOne(() => AccountEntity, (account) => account.presentations, {
+    eager: true,
+  })
   account: AccountEntity;
 
   @OneToMany(() => PresentationCommentEntity, (comment) => comment.presentation)
   comments: PresentationCommentEntity[];
 
-  @OneToMany(() => PresentationLikeEntity, (like) => like.presentation)
-  likes: PresentationLikeEntity[];
+  @OneToMany(() => PresentationReactionEntity, (like) => like.presentation, {
+    eager: true,
+  })
+  reactions: PresentationReactionEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

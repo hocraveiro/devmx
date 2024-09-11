@@ -21,6 +21,7 @@ import { env } from '../envs/env';
       entities: [...dataSourceAccountEntities, ...dataSourceEventsEntities],
       synchronize: true,
       logging: 'all',
+      // dropSchema: true
     }),
     AccountResourceModule,
     EventsResourceModule,

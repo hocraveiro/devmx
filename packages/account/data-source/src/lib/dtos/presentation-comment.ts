@@ -8,7 +8,7 @@ export class PresentationCommentDto implements PresentationComment {
   id: string;
 
   @ApiProperty()
-  name: string;
+  message: string;
 
   @ApiProperty()
   @Type(() => PresentationDto)

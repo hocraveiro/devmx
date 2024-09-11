@@ -13,7 +13,7 @@ import {
 } from 'typeorm';
 import { EventEntity } from './event';
 
-@Entity()
+@Entity({ name: 'rsvp' })
 export class RSVPEntity implements RSVP {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -24,14 +24,25 @@ import {
 import {
   PresentationDto,
   PresentationFacade,
+  PresentationReactionDto,
   CreatePresentationDto,
   UpdatePresentationDto,
+  PresentationCommentDto,
+  CreatePresentationCommentDto,
+  UpdatePresentationCommentDto,
+  PresentationReactionFacade,
+  PresentationCommentFacade,
+  CreatePresentationReactionDto,
 } from '@devmx/account-data-source';
 
-@ApiTags('Presentation')
+@ApiTags('Apresentações')
 @Controller('presentations')
 export class PresentationsController {
-  constructor(private readonly presentationFacade: PresentationFacade) {}
+  constructor(
+    private readonly presentationFacade: PresentationFacade,
+    private readonly presentationReactionFacade: PresentationReactionFacade,
+    private readonly presentationCommentFacade: PresentationCommentFacade
+  ) {}
 
   @Get()
   @ApiPaginatedResponse(PresentationDto)
@@ -87,129 +98,133 @@ export class PresentationsController {
     }
   }
 
-  // @Get(':id/comments')
-  // @ApiPaginatedResponse(PresentationCommentDto)
-  // async findComments(@Query() page: PageOptionsDto) {
-  //   return this.presentationCommentFacade.find({ page });
-  // }
+  /**
+   *   ____                                     _
+   *  / ___|___  _ __ ___  _ __ ___   ___ _ __ | |_ ___
+   * | |   / _ \| '_ ` _ \| '_ ` _ \ / _ \ '_ \| __/ __|
+   * | |__| (_) | | | | | | | | | | |  __/ | | | |_\__ \
+   *  \____\___/|_| |_| |_|_| |_| |_|\___|_| |_|\__|___/
+   */
 
-  // @Get(':id/comments/:commentId')
-  // @ApiOkResponse({ description: 'Comentário encontrado' })
-  // @ApiNotFoundResponse({ description: 'Comentário não encontrado' })
-  // async findOneComment(@Param('commentId') commentId: string) {
-  //   try {
-  //     return await this.presentationCommentFacade.findOne({ id: commentId });
-  //   } catch (err) {
-  //     throw new NotFoundException(err);
-  //   }
-  // }
+  @Get(':id/comments')
+  @ApiPaginatedResponse(PresentationCommentDto)
+  async findComments(@Param('id') id: string, @Query() page: PageOptionsDto) {
+    const where = { presentation: { id } };
+    return this.presentationCommentFacade.find({ page, where });
+  }
 
-  // @Post(':id/comments')
-  // @ApiCreatedResponse({ description: 'Comentário criado com sucesso' })
-  // @ApiBadRequestResponse({ description: 'Problema ao criar comentário' })
-  // async createComment(
-  //   @Body() createPresentationComment: CreatePresentationCommentDto
-  // ) {
-  //   try {
-  //     return await this.presentationCommentFacade.create(
-  //       createPresentationComment
-  //     );
-  //   } catch (err) {
-  //     throw new BadRequestException(err);
-  //   }
-  // }
+  @Get(':id/comments/:commentId')
+  @ApiOkResponse({ description: 'Comentário encontrado' })
+  @ApiNotFoundResponse({ description: 'Comentário não encontrado' })
+  async findOneComment(
+    @Param('id') id: string,
+    @Param('commentId') commentId: string
+  ) {
+    try {
+      const where = { id: commentId, presentation: { id } };
+      return await this.presentationCommentFacade.findOne(where);
+    } catch (err) {
+      throw new NotFoundException(err);
+    }
+  }
+  @Post(':id/comments')
+  @ApiCreatedResponse({ description: 'Comentário criado com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao criar comentário' })
+  async createComment(
+    @Param('id') id: string,
+    @Body() createPresentationComment: CreatePresentationCommentDto
+  ) {
+    const presentation = await this.findOne(id);
+    try {
+      return await this.presentationCommentFacade.create({
+        ...createPresentationComment,
+        presentation,
+      });
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+  @Patch(':id/comments/:commentId')
+  @ApiOkResponse({ description: 'Comentário alterado com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao alterar comentário' })
+  async updateComment(
+    @Param('id') id: string,
+    @Param('commentId') commentId: string,
+    @Body() data: UpdatePresentationCommentDto
+  ) {
+    const presentation = await this.findOne(id);
+    try {
+      const comment = { ...data, presentation, id: commentId };
+      return await this.presentationCommentFacade.update(comment);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+  @Delete(':id/comments/:commentId')
+  @ApiOkResponse({ description: 'Comentário apagado' })
+  @ApiNotFoundResponse({ description: 'Comentário não encontrado' })
+  @ApiBadRequestResponse({ description: 'Problema ao apagar comentário' })
+  async deleteComment(
+    @Param('id') id: string,
+    @Param('commentId') commentId: string
+  ) {
+    const where = { presentation: { id }, id: commentId };
+    const comment = await this.presentationCommentFacade.findOne(where);
+    if (!comment) throw new NotFoundException();
 
-  // @Patch(':id/comments/:commentId')
-  // @ApiOkResponse({ description: 'Comentário alterado com sucesso' })
-  // @ApiBadRequestResponse({ description: 'Problema ao alterar comentário' })
-  // async updateComment(
-  //   @Param('commentId') commentId: string,
-  //   @Body() data: UpdatePresentationCommentDto
-  // ) {
-  //   try {
-  //     return await this.presentationCommentFacade.update({
-  //       ...data,
-  //       id: commentId,
-  //     });
-  //   } catch (err) {
-  //     throw new BadRequestException(err);
-  //   }
-  // }
+    try {
+      return await this.presentationCommentFacade.remove(commentId);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
 
-  // @Delete(':id/comments/:commentId')
-  // @ApiOkResponse({ description: 'Comentário apagado' })
-  // @ApiNotFoundResponse({ description: 'Comentário não encontrado' })
-  // @ApiBadRequestResponse({ description: 'Problema ao apagar comentário' })
-  // async deleteComment(@Param('commentId') commentId: string) {
-  //   const presentationComment = await this.presentationCommentFacade.findOne({
-  //     id: commentId,
-  //   });
-  //   if (!presentationComment) throw new NotFoundException();
+  /**
+   *  ____                 _   _
+   * |  _ \ ___  __ _  ___| |_(_) ___  _ __  ___
+   * | |_) / _ \/ _` |/ __| __| |/ _ \| '_ \/ __|
+   * |  _ <  __/ (_| | (__| |_| | (_) | | | \__ \
+   * |_| \_\___|\__,_|\___|\__|_|\___/|_| |_|___/
+   */
+  @Get(':id/reactions')
+  @ApiPaginatedResponse(PresentationReactionDto)
+  async findReactions(@Param('id') id: string, @Query() page: PageOptionsDto) {
+    const where = { presentation: { id } };
+    return this.presentationReactionFacade.find({ where, page });
+  }
 
-  //   try {
-  //     return await this.presentationCommentFacade.remove(commentId);
-  //   } catch (err) {
-  //     throw new BadRequestException(err);
-  //   }
-  // }
+  @Post(':id/reactions')
+  @ApiCreatedResponse({ description: 'Curtida criada' })
+  @ApiBadRequestResponse({ description: 'Problema ao criar curtida' })
+  async createReaction(
+    @Param('id') _id: string,
+    @Body() createPresentationReaction: CreatePresentationReactionDto
+  ) {
+    try {
+      return await this.presentationReactionFacade.create(
+        createPresentationReaction
+      );
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
 
-  // @Get(':id/likes')
-  // @ApiPaginatedResponse(PresentationLikeDto)
-  // async findLikes(@Param('id') id: string, @Query() page: PageOptionsDto) {
-  //   return this.presentationLikeFacade.find({ page });
-  // }
+  @Delete(':id/reactions/:reactionId')
+  @ApiOkResponse({ description: 'Curtida apagada' })
+  @ApiNotFoundResponse({ description: 'Curtida não encontrada' })
+  @ApiBadRequestResponse({ description: 'Problema ao apagar curtida' })
+  async deleteReaction(
+    @Param('id') id: string,
+    @Param('reactionId') reactionId: string
+  ) {
+    const where = { presentation: { id }, id: reactionId };
+    const reaction = await this.presentationReactionFacade.findOne(where);
+    if (!reaction) throw new NotFoundException();
 
-  // @Get(':id/likes/:likeId')
-  // @ApiOkResponse({ description: 'PresentationLike encontrada' })
-  // @ApiNotFoundResponse({ description: 'PresentationLike não encontrada' })
-  // async findOneLike(@Param('id') id: string, @Param('likeId') likeId: string) {
-  //   try {
-  //     return await this.presentationLikeFacade.findOne({ id: likeId });
-  //   } catch (err) {
-  //     throw new NotFoundException(err);
-  //   }
-  // }
-
-  // @Post(':id/likes')
-  // @ApiCreatedResponse({ description: 'PresentationLike criada com sucesso' })
-  // @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
-  // async createLike(@Body() createPresentationLike: CreatePresentationLikeDto) {
-  //   try {
-  //     return await this.presentationLikeFacade.create(createPresentationLike);
-  //   } catch (err) {
-  //     throw new BadRequestException(err);
-  //   }
-  // }
-
-  // @Patch(':id/likes/:likeId')
-  // @ApiOkResponse({ description: 'PresentationLike alterada com sucesso' })
-  // @ApiBadRequestResponse({ description: 'Problema ao alterar conta' })
-  // async updateLike(
-  //   @Param('id') id: string,
-  //   @Param('likeId') likeId: string,
-  //   @Body() data: UpdatePresentationLikeDto
-  // ) {
-  //   try {
-  //     return await this.presentationLikeFacade.update({ ...data, id: likeId });
-  //   } catch (err) {
-  //     throw new BadRequestException(err);
-  //   }
-  // }
-
-  // @Delete(':id/likes/:likeId')
-  // @ApiOkResponse({ description: 'PresentationLike apagada' })
-  // @ApiNotFoundResponse({ description: 'PresentationLike não encontrada' })
-  // @ApiBadRequestResponse({ description: 'Problema ao apagar conta' })
-  // async deleteLike(@Param('id') id: string, @Param('likeId') likeId: string) {
-  //   const presentationLike = await this.presentationLikeFacade.findOne({
-  //     id: likeId,
-  //   });
-  //   if (!presentationLike) throw new NotFoundException();
-
-  //   try {
-  //     return await this.presentationLikeFacade.remove(id);
-  //   } catch (err) {
-  //     throw new BadRequestException(err);
-  //   }
-  // }
+    try {
+      return await this.presentationReactionFacade.remove(reactionId);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
 }

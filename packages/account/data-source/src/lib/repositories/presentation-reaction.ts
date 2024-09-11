@@ -1,38 +1,37 @@
+import { PresentationReactionRepository } from '@devmx/account-domain';
 import { PageDto, PageMetaDto } from '@devmx/shared-data-source';
-import { PresentationLikeRepository } from '@devmx/account-domain';
-import { PresentationLikeEntity } from '../entities';
+import { PresentationReactionEntity } from '../entities';
 import { Repository } from 'typeorm';
 import {
   FindWhere,
   FindOptions,
-  Updatable,
   Creatable,
 } from '@devmx/shared-api-interfaces';
 
-export class PresentationLikeRepositoryImpl
-  implements PresentationLikeRepository
+export class PresentationReactionRepositoryImpl
+  implements PresentationReactionRepository
 {
   constructor(
-    private readonly repository: Repository<PresentationLikeEntity>
+    private readonly repository: Repository<PresentationReactionEntity>
   ) {}
 
-  create(data: Creatable<PresentationLikeEntity>) {
+  create(data: Creatable<PresentationReactionEntity>) {
     return this.repository.save(data);
   }
 
-  async findOne(where: FindWhere<PresentationLikeEntity>) {
+  async count(where: FindWhere<PresentationReactionEntity>) {
+    return this.repository.countBy(where);
+  }
+
+  async findOne(where: FindWhere<PresentationReactionEntity>) {
     return this.repository.findOne({ where });
-  }
-
-  async update(data: Updatable<PresentationLikeEntity>) {
-    return this.repository.save(data);
   }
 
   async remove(id: string) {
     this.repository.delete(id);
   }
 
-  async find({ page, where }: FindOptions<PresentationLikeEntity>) {
+  async find({ page, where }: FindOptions<PresentationReactionEntity>) {
     let query = this.repository.createQueryBuilder();
 
     query.orderBy(`createdAt`, page.order).skip(page.skip).take(page.take);

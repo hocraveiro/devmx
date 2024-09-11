@@ -1,5 +1,5 @@
-import { Updatable, UseCase } from '@devmx/shared-api-interfaces';
 import { PresentationCommentRepository } from '../../../repositories';
+import { Updatable, UseCase } from '@devmx/shared-api-interfaces';
 import { PresentationComment } from '../../../entities';
 
 export class UpdatePresentationCommentServerUseCase

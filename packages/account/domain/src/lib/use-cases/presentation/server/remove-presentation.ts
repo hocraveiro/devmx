@@ -1,5 +1,5 @@
-import { UseCase } from '@devmx/shared-api-interfaces';
 import { PresentationRepository } from '../../../repositories';
+import { UseCase } from '@devmx/shared-api-interfaces';
 
 export class RemovePresentationServerUseCase implements UseCase<string, void> {
   constructor(private readonly repository: PresentationRepository) {}

@@ -3,7 +3,7 @@ import {
   AccountEntity,
   PresentationCommentEntity,
   PresentationEntity,
-  PresentationLikeEntity,
+  PresentationReactionEntity,
 } from './entities';
 import {
   provideAccountRepository,
@@ -17,7 +17,7 @@ import {
 import {
   AccountRepositoryImpl,
   PresentationCommentRepositoryImpl,
-  PresentationLikeRepositoryImpl,
+  PresentationReactionRepositoryImpl,
   PresentationRepositoryImpl,
 } from './repositories';
 import {
@@ -30,14 +30,14 @@ import {
   provideUpdatePresentationServerUseCase,
 } from './providers/presentation';
 import {
-  provideCreatePresentationLikeServerUseCase,
-  provideFindOnePresentationLikeServerUseCase,
-  provideFindPresentationLikesServerUseCase,
-  providePresentationLikeRepository,
-  providePresentationLikeServerFacade,
-  provideRemovePresentationLikeServerUseCase,
-  provideUpdatePresentationLikeServerUseCase,
-} from './providers/presentation-like';
+  provideCountPresentationReactionsServerUseCase,
+  provideCreatePresentationReactionServerUseCase,
+  provideFindOnePresentationReactionServerUseCase,
+  provideFindPresentationReactionsServerUseCase,
+  providePresentationReactionRepository,
+  providePresentationReactionServerFacade,
+  provideRemovePresentationReactionServerUseCase,
+} from './providers/presentation-reaction';
 import {
   provideCreatePresentationCommentServerUseCase,
   provideFindOnePresentationCommentServerUseCase,
@@ -67,13 +67,13 @@ export const dataSourceAccountProviders: NestProvider[] = [
   provideRemovePresentationServerUseCase(),
   providePresentationServerFacade(),
 
-  providePresentationLikeRepository(PresentationLikeRepositoryImpl),
-  provideCreatePresentationLikeServerUseCase(),
-  provideFindPresentationLikesServerUseCase(),
-  provideFindOnePresentationLikeServerUseCase(),
-  provideUpdatePresentationLikeServerUseCase(),
-  provideRemovePresentationLikeServerUseCase(),
-  providePresentationLikeServerFacade(),
+  providePresentationReactionRepository(PresentationReactionRepositoryImpl),
+  provideCreatePresentationReactionServerUseCase(),
+  provideFindPresentationReactionsServerUseCase(),
+  provideFindOnePresentationReactionServerUseCase(),
+  provideCountPresentationReactionsServerUseCase(),
+  provideRemovePresentationReactionServerUseCase(),
+  providePresentationReactionServerFacade(),
 
   providePresentationCommentRepository(PresentationCommentRepositoryImpl),
   provideCreatePresentationCommentServerUseCase(),
@@ -87,6 +87,6 @@ export const dataSourceAccountProviders: NestProvider[] = [
 export const dataSourceAccountEntities = [
   AccountEntity,
   PresentationEntity,
-  PresentationLikeEntity,
+  PresentationReactionEntity,
   PresentationCommentEntity,
 ];

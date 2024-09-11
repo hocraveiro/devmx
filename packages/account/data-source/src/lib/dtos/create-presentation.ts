@@ -1,16 +1,33 @@
 import { PresentationCommentDto } from './presentation-comment';
-import { PresentationLikeDto } from './presentation-like';
-import { Creatable } from '@devmx/shared-api-interfaces';
+import { PresentationReactionDto } from './presentation-reaction';
+import { Creatable, PresentationFormat } from '@devmx/shared-api-interfaces';
 import { PresentationDto } from './presentation';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsArray, IsString, MaxLength } from 'class-validator';
 
 export class CreatePresentationDto implements Creatable<PresentationDto> {
   @IsString()
   @ApiProperty()
-  name: string;
+  title: string;
+
+  @ApiProperty()
+  @IsString()
+  @MaxLength(512)
+  description: string;
+
+  @ApiProperty()
+  @IsString()
+  format: PresentationFormat;
+
+  @ApiProperty()
+  @IsArray()
+  tags: string[];
+
+  @ApiProperty()
+  @IsArray()
+  resources: string[];
 
   comments: PresentationCommentDto[] = [];
 
-  likes: PresentationLikeDto[] = [];
+  reactions: PresentationReactionDto[] = [];
 }
