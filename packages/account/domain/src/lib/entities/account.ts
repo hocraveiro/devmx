@@ -1,5 +1,21 @@
 import { Entity } from '@devmx/shared-api-interfaces';
 
 export interface Account extends Entity {
-  name: string;
+  username: string;
+
+  password: string;
+
+  email: string
+
+  firstName: string
+
+  lastName: string
+
+  photo?: string
+
+  minibio?: string
+
+  birthday?: string
+
+  active: boolean
 }

@@ -1,25 +1,25 @@
 import {
-  Body,
   Get,
+  Body,
+  Post,
   Param,
   Patch,
-  Post,
   Query,
   Delete,
   Controller,
-  BadRequestException,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
+  ApiTags,
+  ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
+  ApiBadRequestResponse,
 } from '@nestjs/swagger';
 import {
-  ApiPaginatedResponse,
   PageOptionsDto,
+  ApiPaginatedResponse,
 } from '@devmx/shared-data-source';
 import {
   AccountDto,
@@ -28,7 +28,7 @@ import {
   UpdateAccountDto,
 } from '@devmx/account-data-source';
 
-@ApiTags('Account')
+@ApiTags('Contas')
 @Controller('accounts')
 export class AccountsController {
   constructor(private readonly accountFacade: AccountFacade) {}
@@ -45,6 +45,21 @@ export class AccountsController {
   async findOne(@Param('id') id: string) {
     try {
       return await this.accountFacade.findOne({ id });
+    } catch (err) {
+      throw new NotFoundException(err);
+    }
+  }
+
+  @Get(':id/presentations')
+  @ApiOkResponse({ description: 'Apresentações' })
+  @ApiNotFoundResponse({ description: 'A não encontrada' })
+  async findPresentations(
+    @Param('id') id: string,
+    @Query() page: PageOptionsDto
+  ) {
+    const options = { page, where: { account: { id } } };
+    try {
+      return await this.accountFacade.findPresentationsByAccount(options);
     } catch (err) {
       throw new NotFoundException(err);
     }

@@ -9,23 +9,23 @@ export class PresentationDto implements Presentation {
   @ApiProperty()
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Simples & Fácil' })
   title: string;
 
 
-  @ApiProperty()
+  @ApiProperty({ example: '' })
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'talk' })
   format: PresentationFormat;
 
-  @ApiProperty()
+  @ApiProperty({ example: ['#typescript', '#nest', '#angular', '#nx'] })
   tags: string[];
 
-  @ApiProperty()
+  // @ApiProperty()
   resources: string[];
 
-  @ApiProperty()
+  // @ApiProperty()
   @Type(() => PresentationCommentDto)
   comments: PresentationCommentDto[];
 

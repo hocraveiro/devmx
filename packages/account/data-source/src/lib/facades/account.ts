@@ -5,6 +5,8 @@ import {
   FindOneAccountServerUseCase,
   UpdateAccountServerUseCase,
   RemoveAccountServerUseCase,
+  FindPresentationsServerUseCase,
+  Presentation,
 } from '@devmx/account-domain';
 import {
   Creatable,
@@ -21,7 +23,8 @@ export class AccountFacade {
     private readonly findAccountsUseCase: FindAccountsServerUseCase,
     private readonly findOneAccountUseCase: FindOneAccountServerUseCase,
     private readonly updateAccountUseCase: UpdateAccountServerUseCase,
-    private readonly removeAccountUseCase: RemoveAccountServerUseCase
+    private readonly removeAccountUseCase: RemoveAccountServerUseCase,
+    private readonly findPresentationsUseCase: FindPresentationsServerUseCase
   ) {}
 
   async create(data: Creatable<Account>) {
@@ -31,6 +34,11 @@ export class AccountFacade {
 
   async find(options: FindOptions<Account>) {
     const { meta, data } = await this.findAccountsUseCase.execute(options);
+    return { meta, data: plainToInstance(AccountDto, data) };
+  }
+
+  async findPresentationsByAccount(options: FindOptions<Presentation>) {
+    const { meta, data } = await this.findPresentationsUseCase.execute(options);
     return { meta, data: plainToInstance(AccountDto, data) };
   }
 

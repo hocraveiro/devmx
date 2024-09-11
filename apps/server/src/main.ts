@@ -15,10 +15,8 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const config = new DocumentBuilder()
-    .setTitle('DevMX API')
-    .setDescription('The Dev Member Experience API')
-    .setVersion('1.0')
-    .addTag('devs')
+    .setTitle('devpr mx')
+    .setDescription('devpr member experience')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

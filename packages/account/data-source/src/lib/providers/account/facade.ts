@@ -3,6 +3,7 @@ import {
   CreateAccountServerUseCase,
   FindAccountsServerUseCase,
   FindOneAccountServerUseCase,
+  FindPresentationsServerUseCase,
   RemoveAccountServerUseCase,
   UpdateAccountServerUseCase,
 } from '@devmx/account-domain';
@@ -15,14 +16,16 @@ export function provideAccountServerFacade() {
       findAccounts: FindAccountsServerUseCase,
       findOneAccount: FindOneAccountServerUseCase,
       updateAccount: UpdateAccountServerUseCase,
-      removeAccount: RemoveAccountServerUseCase
+      removeAccount: RemoveAccountServerUseCase,
+      findPresentations: FindPresentationsServerUseCase
     ) {
       return new AccountFacade(
         createAccount,
         findAccounts,
         findOneAccount,
         updateAccount,
-        removeAccount
+        removeAccount,
+        findPresentations
       );
     },
     inject: [
@@ -31,6 +34,7 @@ export function provideAccountServerFacade() {
       FindOneAccountServerUseCase,
       UpdateAccountServerUseCase,
       RemoveAccountServerUseCase,
+      FindPresentationsServerUseCase,
     ],
   };
 }

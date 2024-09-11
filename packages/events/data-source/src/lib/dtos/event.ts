@@ -3,37 +3,40 @@ import { AccountDto, PresentationDto } from '@devmx/account-api';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Event } from '@devmx/events-domain';
 import { Type } from 'class-transformer';
+import { today } from '@devmx/shared-util-data';
 
 export class EventDto implements Event {
   @ApiProperty()
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: '16º meetup TypeScript' })
   name: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: '' })
   description?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: today(19).toISOString() })
   startDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ example: today(20).toISOString() })
   endDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ['19:00h - 1ª apresentação', '19:30h - 2ª apresentação'],
+  })
   schedule: string[];
 
-  @ApiProperty()
+  @ApiProperty({ example: 'in-person' })
   format: EventFormat;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ example: '' })
   cover?: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [AccountDto] })
   @Type(() => AccountDto)
   organizers: AccountDto[];
 
-  @ApiProperty()
+  @ApiProperty({ type: [PresentationDto] })
   @Type(() => PresentationDto)
   presentations: PresentationDto[];
 

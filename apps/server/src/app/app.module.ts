@@ -4,9 +4,6 @@ import { AccountResourceModule } from '@devmx/account-resource';
 import { EventsResourceModule } from '@devmx/events-resource';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { env } from '../envs/env';
 
 @Module({
@@ -25,8 +22,6 @@ import { env } from '../envs/env';
     }),
     AccountResourceModule,
     EventsResourceModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  ]
 })
 export class AppModule {}
