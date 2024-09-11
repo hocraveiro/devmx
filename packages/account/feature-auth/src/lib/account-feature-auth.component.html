@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Entrar">
+      <account-sign-in (onSignIn)="onSignIn($event)" />
+    </mat-tab>
+    <mat-tab label="Criar conta">
+      <account-sign-up (onSignUp)="onSignUp($event)" />
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

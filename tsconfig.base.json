@@ -20,6 +20,12 @@
         "packages/account/data-source/src/index.ts"
       ],
       "@devmx/account-domain": ["packages/account/domain/src/index.ts"],
+      "@devmx/account-feature-auth": [
+        "packages/account/feature-auth/src/index.ts"
+      ],
+      "@devmx/account-feature-shell": [
+        "packages/account/feature-shell/src/index.ts"
+      ],
       "@devmx/account-resource": ["packages/account/resource/src/index.ts"],
       "@devmx/events-api": ["packages/events/api/src/index.ts"],
       "@devmx/events-data-source": ["packages/events/data-source/src/index.ts"],
@@ -29,7 +35,9 @@
       "@devmx/shared-api-interfaces": [
         "packages/shared/api-interfaces/src/index.ts"
       ],
+      "@devmx/shared-data-access": ["packages/shared/data-access/src/index.ts"],
       "@devmx/shared-data-source": ["packages/shared/data-source/src/index.ts"],
+      "@devmx/shared-ui-forms": ["packages/shared/ui-forms/src/index.ts"],
       "@devmx/shared-util-data": ["packages/shared/util-data/src/index.ts"]
     }
   },

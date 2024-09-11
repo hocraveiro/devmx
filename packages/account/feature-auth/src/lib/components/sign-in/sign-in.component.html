@@ -1,0 +1,25 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Usuário</mat-label>
+    <input matInput autocomplete="username" formControlName="username" />
+    @if (form.controls.username.invalid) {
+    <mat-error>Obrigatório</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Senha</mat-label>
+    <input
+      type="password"
+      matInput
+      autocomplete="current-password"
+      formControlName="password"
+    />
+    @if (form.controls.password.invalid) {
+    <mat-error>Mínimo 6 caracteres</mat-error>
+    }
+  </mat-form-field>
+
+  <footer>
+    <button mat-flat-button>Entrar</button>
+  </footer>
+</form>
