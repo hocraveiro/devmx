@@ -4,7 +4,7 @@ import { AccountResourceModule } from '@devmx/account-resource';
 import { EventsResourceModule } from '@devmx/events-resource';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { env } from '../envs/env';
+import { env } from './envs/env';
 
 @Module({
   imports: [
