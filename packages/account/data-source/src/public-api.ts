@@ -1,3 +1,4 @@
+export * from './lib/providers/index';
 export * from './lib/repositories';
 export * from './lib/providers';
 export * from './lib/facades';

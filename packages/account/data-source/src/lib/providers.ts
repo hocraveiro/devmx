@@ -1,4 +1,5 @@
 import { NestProvider } from '@devmx/shared-api-interfaces';
+import { CryptoServiceImpl } from './services';
 import {
   AccountEntity,
   PresentationCommentEntity,
@@ -6,13 +7,17 @@ import {
   PresentationReactionEntity,
 } from './entities';
 import {
+  provideSignUpServerUseCase,
   provideAccountRepository,
   provideAccountServerFacade,
   provideCreateAccountServerUseCase,
+  provideCryptoServiceImpl,
   provideFindAccountsServerUseCase,
   provideFindOneAccountServerUseCase,
   provideRemoveAccountServerUseCase,
   provideUpdateAccountServerUseCase,
+  provideSignInServerUseCase,
+  provideAuthenticationFacade,
 } from './providers/account';
 import {
   AccountRepositoryImpl,
@@ -82,6 +87,13 @@ export const dataSourceAccountProviders: NestProvider[] = [
   provideUpdatePresentationCommentServerUseCase(),
   provideRemovePresentationCommentServerUseCase(),
   providePresentationCommentServerFacade(),
+
+  provideCryptoServiceImpl(CryptoServiceImpl),
+
+  provideSignUpServerUseCase(),
+  provideSignInServerUseCase(),
+
+  provideAuthenticationFacade(),
 ];
 
 export const dataSourceAccountEntities = [

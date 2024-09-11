@@ -3,6 +3,9 @@ export const env = {
     name: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET ?? ''
+  },
   oAuth: {
     github: {
       clientID: process.env.GITHUB_OAUTH2_CLIENT_ID ?? '',

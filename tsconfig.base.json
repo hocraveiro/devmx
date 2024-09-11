@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@devmx/account-api": ["packages/account/api/src/index.ts"],
+      "@devmx/account-data-access": [
+        "packages/account/data-access/src/index.ts"
+      ],
       "@devmx/account-data-source": [
         "packages/account/data-source/src/index.ts"
       ],
@@ -37,6 +40,7 @@
       ],
       "@devmx/shared-data-access": ["packages/shared/data-access/src/index.ts"],
       "@devmx/shared-data-source": ["packages/shared/data-source/src/index.ts"],
+      "@devmx/shared-resource": ["packages/shared/resource/src/index.ts"],
       "@devmx/shared-ui-forms": ["packages/shared/ui-forms/src/index.ts"],
       "@devmx/shared-util-data": ["packages/shared/util-data/src/index.ts"]
     }

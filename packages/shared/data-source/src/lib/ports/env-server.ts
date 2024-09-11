@@ -1,17 +1,12 @@
-interface EnvServerDatabase {
-  name: string | undefined;
-  password: string | undefined;
-}
-
-interface EnvServerOAuth {
-  clientID: string;
-  clientSecret: string;
-  callbackURL: string
-}
-
-type EnvServerOAuthProvider = 'github';
+import {
+  EnvServerJwt,
+  EnvServerOAuth,
+  EnvServerDatabase,
+  EnvServerOAuthProvider,
+} from '@devmx/shared-api-interfaces';
 
 export abstract class EnvServer {
   abstract db: EnvServerDatabase;
+  abstract jwt: EnvServerJwt;
   abstract oAuth: Record<EnvServerOAuthProvider, EnvServerOAuth>;
 }

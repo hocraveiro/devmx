@@ -1,10 +1,12 @@
-import { AccountFacade } from '../../facades';
+import { AccountFacade, AuthenticationFacade } from '../../facades';
 import {
   CreateAccountServerUseCase,
   FindAccountsServerUseCase,
   FindOneAccountServerUseCase,
   FindPresentationsServerUseCase,
   RemoveAccountServerUseCase,
+  SignInServerUseCase,
+  SignUpServerUseCase,
   UpdateAccountServerUseCase,
 } from '@devmx/account-domain';
 
@@ -36,5 +38,15 @@ export function provideAccountServerFacade() {
       RemoveAccountServerUseCase,
       FindPresentationsServerUseCase,
     ],
+  };
+}
+
+export function provideAuthenticationFacade() {
+  return {
+    provide: AuthenticationFacade,
+    useFactory(signUp: SignUpServerUseCase, signIn: SignInServerUseCase) {
+      return new AuthenticationFacade(signUp, signIn);
+    },
+    inject: [SignUpServerUseCase, SignInServerUseCase],
   };
 }

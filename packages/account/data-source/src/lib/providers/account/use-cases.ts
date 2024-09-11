@@ -5,7 +5,12 @@ import {
   UpdateAccountServerUseCase,
   RemoveAccountServerUseCase,
   CreateAccountServerUseCase,
+  SignUpServerUseCase,
+  CryptoService,
+  SignInServerUseCase,
+  JwtService,
 } from '@devmx/account-domain';
+import { EnvServer } from '@devmx/shared-data-source';
 
 export function provideCreateAccountServerUseCase() {
   return {
@@ -54,5 +59,30 @@ export function provideRemoveAccountServerUseCase() {
       return new RemoveAccountServerUseCase(repository);
     },
     inject: [AccountRepository],
+  };
+}
+
+export function provideSignUpServerUseCase() {
+  return {
+    provide: SignUpServerUseCase,
+    useFactory(repository: AccountRepository, crypto: CryptoService) {
+      return new SignUpServerUseCase(repository, crypto);
+    },
+    inject: [AccountRepository, CryptoService],
+  };
+}
+
+export function provideSignInServerUseCase() {
+  return {
+    provide: SignInServerUseCase,
+    useFactory(
+      repository: AccountRepository,
+      jwt: JwtService,
+      crypto: CryptoService,
+      envServer: EnvServer
+    ) {
+      return new SignInServerUseCase(repository, jwt, crypto, envServer.jwt);
+    },
+    inject: [AccountRepository, JwtService, CryptoService, EnvServer],
   };
 }

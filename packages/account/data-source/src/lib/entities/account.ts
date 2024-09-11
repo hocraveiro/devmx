@@ -31,13 +31,13 @@ export class AccountEntity implements Account {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ default: '' })
   photo?: string;
 
-  @Column()
+  @Column({ default: '' })
   minibio?: string;
 
-  @Column()
+  @Column({ default: '' })
   birthday?: string;
 
   @Column({ type: 'boolean', default: false })
