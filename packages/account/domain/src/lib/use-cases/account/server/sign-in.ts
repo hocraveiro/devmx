@@ -36,6 +36,7 @@ export class SignInServerUseCase implements UseCase<SignIn, AccessToken> {
     const authUser = {
       firstName: account.firstName,
       username: account.username,
+      roles: account.roles,
       email: account.email,
       sub: account.id,
     };

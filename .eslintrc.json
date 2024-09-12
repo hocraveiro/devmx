@@ -47,6 +47,7 @@
                 "sourceTag": "type:resource",
                 "onlyDependOnLibsWithTags": [
                   "type:util",
+                  "type:resource",
                   "type:data-source",
                   "type:api"
                 ]

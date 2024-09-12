@@ -1,21 +1,23 @@
-import { Entity } from '@devmx/shared-api-interfaces';
+import { Entity, Role } from '@devmx/shared-api-interfaces';
 
 export interface Account extends Entity {
   username: string;
 
   password: string;
 
-  email: string
+  email: string;
 
-  firstName: string
+  firstName: string;
 
-  lastName: string
+  lastName: string;
 
-  photo?: string
+  photo?: string;
 
-  minibio?: string
+  minibio?: string;
 
-  birthday?: string
+  roles: Role[];
 
-  active: boolean
+  birthday?: string;
+
+  active: boolean;
 }

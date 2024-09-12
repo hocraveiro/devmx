@@ -34,6 +34,7 @@ import {
   PresentationCommentFacade,
   CreatePresentationReactionDto,
 } from '@devmx/account-data-source';
+import { Roles } from '@devmx/shared-resource';
 
 @ApiTags('Apresentações')
 @Controller('presentations')
@@ -47,12 +48,12 @@ export class PresentationsController {
   @Get()
   @ApiPaginatedResponse(PresentationDto)
   async find(@Query() page: PageOptionsDto) {
-    return this.presentationFacade.find({ page });
+    return await this.presentationFacade.find({ page });
   }
 
   @Get(':id')
-  @ApiOkResponse({ description: 'Presentation encontrada' })
-  @ApiNotFoundResponse({ description: 'Presentation não encontrada' })
+  @ApiOkResponse({ description: 'Apresentação encontrada' })
+  @ApiNotFoundResponse({ description: 'Apresentação não encontrada' })
   async findOne(@Param('id') id: string) {
     try {
       return await this.presentationFacade.findOne({ id });
@@ -62,8 +63,9 @@ export class PresentationsController {
   }
 
   @Post()
-  @ApiCreatedResponse({ description: 'Presentation criada com sucesso' })
-  @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
+  @Roles('speaker')
+  @ApiCreatedResponse({ description: 'Apresentação criada com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao criar apresentação' })
   async create(@Body() createPresentation: CreatePresentationDto) {
     try {
       return await this.presentationFacade.create(createPresentation);
@@ -73,8 +75,8 @@ export class PresentationsController {
   }
 
   @Patch(':id')
-  @ApiOkResponse({ description: 'Presentation alterada com sucesso' })
-  @ApiBadRequestResponse({ description: 'Problema ao alterar conta' })
+  @ApiOkResponse({ description: 'Apresentação alterada com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao alterar apresentação' })
   async update(@Param('id') id: string, @Body() data: UpdatePresentationDto) {
     try {
       return await this.presentationFacade.update({ ...data, id });
@@ -84,9 +86,9 @@ export class PresentationsController {
   }
 
   @Delete(':id')
-  @ApiOkResponse({ description: 'Presentation apagada' })
-  @ApiNotFoundResponse({ description: 'Presentation não encontrada' })
-  @ApiBadRequestResponse({ description: 'Problema ao apagar conta' })
+  @ApiOkResponse({ description: 'Apresentação apagada' })
+  @ApiNotFoundResponse({ description: 'Apresentação não encontrada' })
+  @ApiBadRequestResponse({ description: 'Problema ao apagar apresentação' })
   async delete(@Param('id') id: string) {
     const presentation = await this.presentationFacade.findOne({ id });
     if (!presentation) throw new NotFoundException();
@@ -127,6 +129,7 @@ export class PresentationsController {
       throw new NotFoundException(err);
     }
   }
+
   @Post(':id/comments')
   @ApiCreatedResponse({ description: 'Comentário criado com sucesso' })
   @ApiBadRequestResponse({ description: 'Problema ao criar comentário' })
@@ -144,6 +147,7 @@ export class PresentationsController {
       throw new BadRequestException(err);
     }
   }
+
   @Patch(':id/comments/:commentId')
   @ApiOkResponse({ description: 'Comentário alterado com sucesso' })
   @ApiBadRequestResponse({ description: 'Problema ao alterar comentário' })
@@ -160,6 +164,7 @@ export class PresentationsController {
       throw new BadRequestException(err);
     }
   }
+
   @Delete(':id/comments/:commentId')
   @ApiOkResponse({ description: 'Comentário apagado' })
   @ApiNotFoundResponse({ description: 'Comentário não encontrado' })
@@ -194,7 +199,7 @@ export class PresentationsController {
   }
 
   @Post(':id/reactions')
-  @ApiCreatedResponse({ description: 'Curtida criada' })
+  @ApiCreatedResponse({ description: 'Reação criada' })
   @ApiBadRequestResponse({ description: 'Problema ao criar curtida' })
   async createReaction(
     @Param('id') _id: string,
@@ -210,8 +215,8 @@ export class PresentationsController {
   }
 
   @Delete(':id/reactions/:reactionId')
-  @ApiOkResponse({ description: 'Curtida apagada' })
-  @ApiNotFoundResponse({ description: 'Curtida não encontrada' })
+  @ApiOkResponse({ description: 'Reação apagada' })
+  @ApiNotFoundResponse({ description: 'Reação não encontrada' })
   @ApiBadRequestResponse({ description: 'Problema ao apagar curtida' })
   async deleteReaction(
     @Param('id') id: string,

@@ -18,13 +18,8 @@ import {
   provideUpdateAccountServerUseCase,
   provideSignInServerUseCase,
   provideAuthenticationFacade,
+  provideJwtStrategy,
 } from './providers/account';
-import {
-  AccountRepositoryImpl,
-  PresentationCommentRepositoryImpl,
-  PresentationReactionRepositoryImpl,
-  PresentationRepositoryImpl,
-} from './repositories';
 import {
   provideCreatePresentationServerUseCase,
   provideFindOnePresentationServerUseCase,
@@ -54,7 +49,9 @@ import {
 } from './providers/presentation-comment';
 
 export const dataSourceAccountProviders: NestProvider[] = [
-  provideAccountRepository(AccountRepositoryImpl),
+  provideJwtStrategy(),
+
+  provideAccountRepository(),
 
   provideCreateAccountServerUseCase(),
   provideFindAccountsServerUseCase(),
@@ -64,7 +61,7 @@ export const dataSourceAccountProviders: NestProvider[] = [
 
   provideAccountServerFacade(),
 
-  providePresentationRepository(PresentationRepositoryImpl),
+  providePresentationRepository(),
   provideCreatePresentationServerUseCase(),
   provideFindPresentationsServerUseCase(),
   provideFindOnePresentationServerUseCase(),
@@ -72,7 +69,7 @@ export const dataSourceAccountProviders: NestProvider[] = [
   provideRemovePresentationServerUseCase(),
   providePresentationServerFacade(),
 
-  providePresentationReactionRepository(PresentationReactionRepositoryImpl),
+  providePresentationReactionRepository(),
   provideCreatePresentationReactionServerUseCase(),
   provideFindPresentationReactionsServerUseCase(),
   provideFindOnePresentationReactionServerUseCase(),
@@ -80,7 +77,7 @@ export const dataSourceAccountProviders: NestProvider[] = [
   provideRemovePresentationReactionServerUseCase(),
   providePresentationReactionServerFacade(),
 
-  providePresentationCommentRepository(PresentationCommentRepositoryImpl),
+  providePresentationCommentRepository(),
   provideCreatePresentationCommentServerUseCase(),
   provideFindPresentationCommentsServerUseCase(),
   provideFindOnePresentationCommentServerUseCase(),

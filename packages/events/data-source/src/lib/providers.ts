@@ -1,4 +1,4 @@
-import { EventRepositoryImpl, RSVPRepositoryImpl } from './repositories';
+import { RSVPRepositoryImpl } from './repositories';
 import { NestProvider } from '@devmx/shared-api-interfaces';
 import { EventEntity, RSVPEntity } from './entities';
 import {
@@ -21,7 +21,7 @@ import {
 } from './providers/rsvp';
 
 export const dataSourceEventsProviders: NestProvider[] = [
-  provideEventRepository(EventRepositoryImpl),
+  provideEventRepository(),
   provideCreateEventServerUseCase(),
   provideFindEventsServerUseCase(),
   provideFindOneEventServerUseCase(),

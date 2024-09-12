@@ -1,14 +1,14 @@
 import { EventRepository } from '@devmx/events-domain';
-import { EventEntity } from '../../entities';
+import { EventRepositoryImpl } from '../../repositories';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Type } from '@devmx/shared-api-interfaces';
+import { EventEntity } from '../../entities';
 import { Repository } from 'typeorm';
 
-export function provideEventRepository(Repository: Type<EventRepository>) {
+export function provideEventRepository() {
   return {
     provide: EventRepository,
     useFactory(repository: Repository<EventEntity>) {
-      return new Repository(repository);
+      return new EventRepositoryImpl(repository);
     },
     inject: [getRepositoryToken(EventEntity)],
   };

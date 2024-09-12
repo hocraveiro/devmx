@@ -1,3 +1,4 @@
+import { AuthGuard, JwtAuthGuard, Roles } from '@devmx/shared-resource';
 import {
   Get,
   Body,
@@ -6,37 +7,51 @@ import {
   Patch,
   Query,
   Delete,
+  Request,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
+  ForbiddenException,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOkResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import {
+  AuthRequest,
   PageOptionsDto,
   ApiPaginatedResponse,
 } from '@devmx/shared-data-source';
 import {
   AccountDto,
   AccountFacade,
+  AssignRolesDto,
   CreateAccountDto,
   UpdateAccountDto,
 } from '@devmx/account-data-source';
 
+@ApiBearerAuth()
 @ApiTags('Contas')
 @Controller('accounts')
 export class AccountsController {
   constructor(private readonly accountFacade: AccountFacade) {}
 
+  @Get('auth')
+  @UseGuards(AuthGuard, JwtAuthGuard)
+  getProfile(@Request() req: AuthRequest) {
+    return req.user;
+  }
+
   @Get()
   @ApiPaginatedResponse(AccountDto)
   async find(@Query() page: PageOptionsDto) {
-    return this.accountFacade.find({ page });
+    return await this.accountFacade.find({ page });
   }
 
   @Get(':id')
@@ -66,7 +81,8 @@ export class AccountsController {
   }
 
   @Post()
-  @ApiCreatedResponse({ description: 'Account criada com sucesso' })
+  @Roles('director', 'staff')
+  @ApiCreatedResponse({ description: 'Conta criada com sucesso' })
   @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
   async create(@Body() createAccount: CreateAccountDto) {
     try {
@@ -77,9 +93,41 @@ export class AccountsController {
   }
 
   @Patch(':id')
-  @ApiOkResponse({ description: 'Account alterada com sucesso' })
+  @UseGuards(JwtAuthGuard)
+  @Roles('director', 'staff')
+  @ApiCreatedResponse({ description: 'Conta criada com sucesso' })
+  @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
+  async assignRoles(
+    @Param('id') id: string,
+    @Body() assignRoles: AssignRolesDto
+  ) {
+    if (id !== assignRoles.id) {
+      throw new ForbiddenException();
+    }
+
+    try {
+      return await this.accountFacade.update(assignRoles);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ description: 'Conta alterada com sucesso' })
   @ApiBadRequestResponse({ description: 'Problema ao alterar conta' })
-  async update(@Param('id') id: string, @Body() data: UpdateAccountDto) {
+  @ApiForbiddenResponse({
+    description: 'Operação proibida para outros usuários',
+  })
+  async update(
+    @Request() req: AuthRequest,
+    @Param('id') id: string,
+    @Body() data: UpdateAccountDto
+  ) {
+    if (req.user.id !== id) {
+      throw new ForbiddenException();
+    }
+
     try {
       return await this.accountFacade.update({ ...data, id });
     } catch (err) {
@@ -88,15 +136,24 @@ export class AccountsController {
   }
 
   @Delete(':id')
-  @ApiOkResponse({ description: 'Account apagada' })
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ description: 'Conta apagada' })
   @ApiNotFoundResponse({ description: 'Account não encontrada' })
   @ApiBadRequestResponse({ description: 'Problema ao apagar conta' })
-  async delete(@Param('id') id: string) {
+  @ApiForbiddenResponse({
+    description: 'Operação proibida para outros usuários',
+  })
+  async delete(@Request() req: AuthRequest, @Param('id') id: string) {
+    if (req.user.id !== id) {
+      throw new ForbiddenException();
+    }
+
     const account = await this.accountFacade.findOne({ id });
     if (!account) throw new NotFoundException();
 
     try {
-      return await this.accountFacade.remove(id);
+      return account;
+      // return await this.accountFacade.remove(id);
     } catch (err) {
       throw new BadRequestException(err);
     }

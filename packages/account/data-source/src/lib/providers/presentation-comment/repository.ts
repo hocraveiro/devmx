@@ -1,16 +1,14 @@
+import { PresentationCommentRepositoryImpl } from '../../repositories';
 import { PresentationCommentRepository } from '@devmx/account-domain';
 import { PresentationCommentEntity } from '../../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Type } from '@devmx/shared-api-interfaces';
 import { Repository } from 'typeorm';
 
-export function providePresentationCommentRepository(
-  Repository: Type<PresentationCommentRepository>
-) {
+export function providePresentationCommentRepository() {
   return {
     provide: PresentationCommentRepository,
     useFactory(repository: Repository<PresentationCommentEntity>) {
-      return new Repository(repository);
+      return new PresentationCommentRepositoryImpl(repository);
     },
     inject: [getRepositoryToken(PresentationCommentEntity)],
   };

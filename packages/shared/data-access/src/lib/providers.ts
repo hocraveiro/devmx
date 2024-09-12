@@ -1,5 +1,5 @@
 import { AngularProvider, Type } from '@devmx/shared-api-interfaces';
-import { HttpClient } from './ports';
+import { EnvClient, HttpClient } from './ports';
 
 export function provideHttpClientImpl<T>(
   HttpClientImpl: Type<T>
@@ -7,5 +7,12 @@ export function provideHttpClientImpl<T>(
   return {
     provide: HttpClient,
     useClass: HttpClientImpl,
+  };
+}
+
+export function provideEnvClient(value: EnvClient): AngularProvider {
+  return {
+    provide: EnvClient,
+    useValue: value,
   };
 }

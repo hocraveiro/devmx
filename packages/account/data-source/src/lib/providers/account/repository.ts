@@ -1,14 +1,14 @@
+import { AccountRepositoryImpl } from '../../repositories';
 import { AccountRepository } from '@devmx/account-domain';
-import { AccountEntity } from '../../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Type } from '@devmx/shared-api-interfaces';
+import { AccountEntity } from '../../entities';
 import { Repository } from 'typeorm';
 
-export function provideAccountRepository(Repository: Type<AccountRepository>) {
+export function provideAccountRepository() {
   return {
     provide: AccountRepository,
     useFactory(repository: Repository<AccountEntity>) {
-      return new Repository(repository);
+      return new AccountRepositoryImpl(repository);
     },
     inject: [getRepositoryToken(AccountEntity)],
   };

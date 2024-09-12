@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nx run-many -t serve --projects=server,devpr"
+    "dev": "nx run-many -t serve --projects=server,devpr",
+    "commit": "czg"
   },
   "private": true,
   "devDependencies": {
@@ -46,6 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
     "@typescript-eslint/utils": "^7.16.0",
+    "czg": "^1.9.4",
     "enquirer": "^2.4.1",
     "eslint": "~8.57.0",
     "eslint-config-prettier": "^9.0.0",

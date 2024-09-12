@@ -12,7 +12,8 @@
     "class-transformer": "^0.5.1",
     "@nestjs/typeorm": "^10.0.2",
     "@devmx/shared-data-source": "0.0.1",
-    "@devmx/account-api": "0.0.1"
+    "@devmx/account-api": "0.0.1",
+    "@devmx/shared-util-data": "0.0.1"
   },
   "type": "commonjs",
   "main": "./src/index.js",

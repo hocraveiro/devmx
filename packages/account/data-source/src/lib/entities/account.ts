@@ -2,14 +2,15 @@ import { Account } from '@devmx/account-domain';
 import {
   Column,
   Entity,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  OneToMany,
 } from 'typeorm';
 import { PresentationEntity } from './presentation';
 import { PresentationCommentEntity } from './presentation-comment';
 import { PresentationReactionEntity } from './presentation-reaction';
+import { Role } from '@devmx/shared-api-interfaces';
 
 @Entity({ name: 'account' })
 export class AccountEntity implements Account {
@@ -39,6 +40,9 @@ export class AccountEntity implements Account {
 
   @Column({ default: '' })
   birthday?: string;
+
+  @Column({ type: 'simple-array' })
+  roles: Role[];
 
   @Column({ type: 'boolean', default: false })
   active: boolean;

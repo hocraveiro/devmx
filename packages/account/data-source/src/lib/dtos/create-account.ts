@@ -1,4 +1,4 @@
-import { Creatable } from '@devmx/shared-api-interfaces';
+import { Creatable, Role } from '@devmx/shared-api-interfaces';
 import { PresentationDto } from './presentation';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, MaxLength } from 'class-validator';
@@ -37,6 +37,8 @@ export class CreateAccountDto implements Creatable<AccountDto> {
   @IsOptional()
   @ApiPropertyOptional()
   birthday?: string;
+
+  roles: Role[];
 
   active: boolean;
 

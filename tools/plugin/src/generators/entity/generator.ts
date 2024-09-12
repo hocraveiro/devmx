@@ -23,15 +23,6 @@ export async function entityGenerator(
 
   const normalizedSchema = normalizeSchema(options);
 
-
-  {
-    console.log('qwe')
-
-    {
-      console.log('qwe')
-    }
-  }
-
   if (domain.sourceRoot) {
     generateDomain(tree, domain.sourceRoot, normalizedSchema);
 

@@ -1,3 +1,4 @@
+import { Allowed } from '@devmx/shared-resource';
 import {
   Body,
   Post,
@@ -23,6 +24,7 @@ import {
 export class AuthController {
   constructor(private readonly facade: AuthenticationFacade) {}
 
+  @Allowed()
   @Post('sign-in')
   @ApiOkResponse({ description: 'Token de autenticação' })
   @ApiUnauthorizedResponse({ description: 'Não autorizado' })

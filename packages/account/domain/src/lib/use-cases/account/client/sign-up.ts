@@ -1,7 +1,8 @@
-import { SignUp, AccessToken, UseCase } from '@devmx/shared-api-interfaces';
+import { SignUp, UseCase } from '@devmx/shared-api-interfaces';
 import { AuthService } from '../../../services';
+import { Profile } from '../../../dtos/profile';
 
-export class SignUpClientUseCase implements UseCase<SignUp, AccessToken> {
+export class SignUpClientUseCase implements UseCase<SignUp, Profile> {
   constructor(private readonly authService: AuthService) {}
 
   execute(data: SignUp) {

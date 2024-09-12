@@ -1,6 +1,7 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Role } from '@devmx/shared-api-interfaces';
 import { Account } from '@devmx/account-domain';
 import { today } from '@devmx/shared-util-data';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 
 export class AccountDto implements Account {
@@ -30,6 +31,9 @@ export class AccountDto implements Account {
 
   @ApiPropertyOptional({ example: '1986-12-29T00:00:00.000Z' })
   birthday?: string;
+
+  @Exclude()
+  roles: Role[];
 
   @Exclude()
   active: boolean;
