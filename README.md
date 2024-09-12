@@ -1,11 +1,11 @@
-# devpr mx
+```
+     _                           
+  __| | _____   ___ __ ___ __  __
+ / _` |/ _ \ \ / / '_ ` _ \\ \/ /
+| (_| |  __/\ V /| | | | | |>  < 
+ \__,_|\___| \_/ |_| |_| |_/_/\_\
+```
 
-devpr member experience
+# dev member experience
 
-1. `pnpm install`
-1. `mv .env-example .env`
-    
-    Preencha com as variáveis
-
-1. `docker compose up -d`
-1. `pnpx nx serve server`
+Quer contribuir? Comece com [este guia](./CONTRIBUTING.md).
