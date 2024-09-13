@@ -1,5 +1,6 @@
 import { AccountFacade, AuthenticationFacade } from '../../facades';
 import {
+  CheckUsernameServerUseCase,
   CreateAccountServerUseCase,
   FindAccountsServerUseCase,
   FindOneAccountServerUseCase,
@@ -44,9 +45,17 @@ export function provideAccountServerFacade() {
 export function provideAuthenticationFacade() {
   return {
     provide: AuthenticationFacade,
-    useFactory(signUp: SignUpServerUseCase, signIn: SignInServerUseCase) {
-      return new AuthenticationFacade(signUp, signIn);
+    useFactory(
+      signUp: SignUpServerUseCase,
+      signIn: SignInServerUseCase,
+      checkUsername: CheckUsernameServerUseCase
+    ) {
+      return new AuthenticationFacade(signUp, signIn, checkUsername);
     },
-    inject: [SignUpServerUseCase, SignInServerUseCase],
+    inject: [
+      SignUpServerUseCase,
+      SignInServerUseCase,
+      CheckUsernameServerUseCase,
+    ],
   };
 }

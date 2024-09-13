@@ -152,8 +152,7 @@ export class AccountsController {
     if (!account) throw new NotFoundException();
 
     try {
-      return account;
-      // return await this.accountFacade.remove(id);
+      return await this.accountFacade.remove(id);
     } catch (err) {
       throw new BadRequestException(err);
     }

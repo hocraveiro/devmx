@@ -1,4 +1,6 @@
 import {
+  CryptoService,
+  JwtService,
   AccountRepository,
   FindAccountsServerUseCase,
   FindOneAccountServerUseCase,
@@ -6,9 +8,8 @@ import {
   RemoveAccountServerUseCase,
   CreateAccountServerUseCase,
   SignUpServerUseCase,
-  CryptoService,
   SignInServerUseCase,
-  JwtService,
+  CheckUsernameServerUseCase,
 } from '@devmx/account-domain';
 import { EnvServer } from '@devmx/shared-data-source';
 
@@ -84,5 +85,15 @@ export function provideSignInServerUseCase() {
       return new SignInServerUseCase(repository, jwt, crypto, envServer.jwt);
     },
     inject: [AccountRepository, JwtService, CryptoService, EnvServer],
+  };
+}
+
+export function provideCheckUsernameServerUseCase() {
+  return {
+    provide: CheckUsernameServerUseCase,
+    useFactory(repository: AccountRepository) {
+      return new CheckUsernameServerUseCase(repository);
+    },
+    inject: [AccountRepository],
   };
 }

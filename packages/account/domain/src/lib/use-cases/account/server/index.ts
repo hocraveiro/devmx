@@ -1,3 +1,4 @@
+export * from './check-username';
 export * from './create-account';
 export * from './find-accounts';
 export * from './find-one-account';

@@ -1,3 +1,4 @@
+import { CheckUsernameDto } from '@devmx/account-data-source';
 import { Allowed } from '@devmx/shared-resource';
 import {
   Body,
@@ -5,6 +6,7 @@ import {
   Controller,
   BadRequestException,
   UnauthorizedException,
+  ConflictException,
 } from '@nestjs/common';
 import {
   SignInDto,
@@ -14,9 +16,10 @@ import {
 import {
   ApiTags,
   ApiOkResponse,
-  ApiUnauthorizedResponse,
   ApiCreatedResponse,
   ApiBadRequestResponse,
+  ApiUnauthorizedResponse,
+  ApiConflictResponse,
 } from '@nestjs/swagger';
 
 @ApiTags('Autenticação')
@@ -40,6 +43,7 @@ export class AuthController {
     }
   }
 
+  @Allowed()
   @Post('sign-up')
   @ApiCreatedResponse({ description: 'Conta criada' })
   @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
@@ -51,6 +55,23 @@ export class AuthController {
         throw new BadRequestException(err.message);
       } else {
         throw new BadRequestException();
+      }
+    }
+  }
+
+  @Allowed()
+  @Post('check-username')
+  @ApiOkResponse({ description: 'Usuário disponível' })
+  @ApiConflictResponse({ description: 'Usuário já existe' })
+  async checkUsername(@Body() checkUsernameDto: CheckUsernameDto) {
+    try {
+      return await this.facade.checkUsername(checkUsernameDto);
+
+    } catch (err) {
+      if (err instanceof Error) {
+        throw new ConflictException(err.message);
+      } else {
+        throw new ConflictException();
       }
     }
   }

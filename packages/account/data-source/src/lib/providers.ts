@@ -19,6 +19,7 @@ import {
   provideSignInServerUseCase,
   provideAuthenticationFacade,
   provideJwtStrategy,
+  provideCheckUsernameServerUseCase,
 } from './providers/account';
 import {
   provideCreatePresentationServerUseCase,
@@ -89,6 +90,8 @@ export const dataSourceAccountProviders: NestProvider[] = [
 
   provideSignUpServerUseCase(),
   provideSignInServerUseCase(),
+
+  provideCheckUsernameServerUseCase(),
 
   provideAuthenticationFacade(),
 ];

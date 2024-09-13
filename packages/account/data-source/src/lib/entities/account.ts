@@ -10,7 +10,7 @@ import {
 import { PresentationEntity } from './presentation';
 import { PresentationCommentEntity } from './presentation-comment';
 import { PresentationReactionEntity } from './presentation-reaction';
-import { Role } from '@devmx/shared-api-interfaces';
+import { Gender, Role } from '@devmx/shared-api-interfaces';
 
 @Entity({ name: 'account' })
 export class AccountEntity implements Account {
@@ -31,6 +31,21 @@ export class AccountEntity implements Account {
 
   @Column()
   lastName: string;
+
+  @Column({
+    type: 'enum',
+    enum: [
+      'male',
+      'female',
+      'non-binary',
+      'gender-fluid',
+      'agender',
+      'other',
+      'prefer-not-to-say',
+    ],
+    default: 'prefer-not-to-say',
+  })
+  gender?: Gender;
 
   @Column({ default: '' })
   photo?: string;

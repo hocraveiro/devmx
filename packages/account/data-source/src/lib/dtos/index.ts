@@ -1,5 +1,6 @@
 export * from './account';
 export * from './assign-roles';
+export * from './check-username';
 export * from './create-account';
 export * from './create-presentation-comment';
 export * from './create-presentation-reaction';

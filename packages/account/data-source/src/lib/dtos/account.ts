@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Role } from '@devmx/shared-api-interfaces';
+import { Gender, Role } from '@devmx/shared-api-interfaces';
 import { Account } from '@devmx/account-domain';
 import { today } from '@devmx/shared-util-data';
 import { Exclude } from 'class-transformer';
@@ -22,6 +22,21 @@ export class AccountDto implements Account {
 
   @ApiProperty({ example: 'Siquinelli' })
   lastName: string;
+
+  @ApiPropertyOptional({
+    example: 'male',
+    type: 'enum',
+    enum: [
+      'male',
+      'female',
+      'non-binary',
+      'gender-fluid',
+      'agender',
+      'other',
+      'prefer-not-to-say',
+    ],
+  })
+  gender?: Gender;
 
   @ApiPropertyOptional({ example: '' })
   photo?: string;

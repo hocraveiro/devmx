@@ -1,4 +1,4 @@
-import { Entity, Role } from '@devmx/shared-api-interfaces';
+import { Entity, Gender, Role } from '@devmx/shared-api-interfaces';
 
 export interface Account extends Entity {
   username: string;
@@ -10,6 +10,8 @@ export interface Account extends Entity {
   firstName: string;
 
   lastName: string;
+
+  gender?: Gender;
 
   photo?: string;
 

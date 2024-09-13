@@ -5,21 +5,24 @@ import {
   SignInClientUseCase,
   SignUpClientUseCase,
 } from '@devmx/account-domain';
-import { take } from 'rxjs';
+import { skip, take } from 'rxjs';
 
 interface AuthState {
   user: AuthAccount | null;
+  authenticated: boolean;
 }
 
 export class AuthFacade extends Facade<AuthState> {
   user$ = this.select((state) => state.user);
+
+  authenticated$ = this.select((state) => state.authenticated).pipe(skip(1));
 
   constructor(
     private readonly signUpUseCase: SignUpClientUseCase,
     private readonly signInUseCase: SignInClientUseCase,
     private readonly getAuthAccountUseCase: GetAuthAccountClientUseCase
   ) {
-    super({ user: null });
+    super({ user: null, authenticated: false });
   }
 
   signUp(data: SignUp) {
@@ -31,12 +34,19 @@ export class AuthFacade extends Facade<AuthState> {
   signIn(data: SignIn) {
     const signIn$ = this.signInUseCase.execute(data).pipe(take(1));
 
-    signIn$.subscribe();
+    signIn$.subscribe(() => this.getAuthUser());
   }
 
   getAuthUser() {
     const getAuthUser$ = this.getAuthAccountUseCase.execute().pipe(take(1));
 
-    getAuthUser$.subscribe((user) => this.setState({ user }));
+    getAuthUser$.subscribe((user) => {
+      this.setState({ user });
+
+      if (user) {
+        const authenticated = true;
+        this.setState({ authenticated });
+      }
+    });
   }
 }
