@@ -1,70 +1,54 @@
-import { Token } from './token';
-import type {
-  Type,
-  Provider,
-  ProvidedAs,
-  ProviderKey,
-  ProviderItem,
-} from './types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type {Provider, Ref} from './types'
+import {is} from './utils'
 
-const container = new Map();
-const relations = new Map();
-const providers: ProviderItem[] = [];
+const container = new Map()
+const relations = new Map()
 
-export const inject = <T>(type: ProviderKey<T>): T => {
-  const concrete = container.get(type);
-  if (!concrete) throw `Provider ${type.name} não registrado`;
-  return concrete;
-};
+function use<T>(ref: Ref<T>): T {
+  const value = container.get(ref)
 
-const provide = <T>({ for: key, use }: Provider<T>): ProvidedAs<T> => {
-  const concrete = use ?? key;
-  if (typeof concrete === 'function') {
-    const dependencies = relations.get(key);
-    try {
-      const clazz = concrete as Type<typeof use>;
-      const provided = new clazz(...dependencies) as T;
-      return { provided, useAs: 'useClass' };
-    } catch {
-      const factory = concrete as <R>(...params: unknown[]) => R;
-      const provided = factory<T>(...dependencies);
-      return { provided, useAs: 'useFactory' };
+  if (!value) throw `${ref.name} not found`
+
+  return value
+}
+
+const provide = async <T>({ref, use}: Provider<T>) => {
+  const type = (use ?? ref) as T
+
+  if (is.fn<T>(type)) {
+    const deps = relations.get(ref) ?? []
+
+    if (is.type<T>(type)) {
+      return new type(...deps)
     }
+
+    if (is.asyncFn<T>(type)) {
+      return await type(...deps)
+    }
+
+    return type(...deps)
   }
 
-  return { provided: concrete as T, useAs: 'useValue' };
-};
+  return type
+}
 
-const set = <T>(provider: Provider<T>) => {
-  relations.set(provider.for, (provider.add ?? []).map(inject));
-  const { provided, useAs } = provide(provider);
-  container.set(provider.for, provided);
-  providers.push({ ...provider, useAs });
-};
+const add = async <T>(provider: Provider<T>) => {
+  if (provider.dep && provider.dep.length > 0) {
+    relations.set(provider.ref, provider.dep.map(use))
+  }
 
-export const register = (...providers: Provider[]) => providers.forEach(set);
+  container.set(provider.ref, await provide(provider))
 
-export const transferAngularProviders = () => {
-  return providers.map(({ for: provide, use, add: deps = [], useAs }) => {
-    return { provide, deps, [useAs]: use };
-  });
-};
+  return use(provider.ref)
+}
 
-export const transferNestProviders = () => {
-  return providers.map(({ for: provide, use, add: inject = [], useAs }) => {
-    return { provide, inject, [useAs]: use };
-  });
-};
+async function* set<T>(
+  ...providers: Provider<T | any>[]
+): AsyncGenerator<T, void, unknown> {
+  for (const p of providers) {
+    yield await add(p)
+  }
+}
 
-export const transferTo = (framework: 'angular' | 'nest') => {
-  const transferMap = {
-    angular: transferAngularProviders,
-    nest: transferNestProviders,
-  };
-
-  return transferMap[framework]();
-};
-
-export const token = <T>(name: string | T) => new Token<T>(name);
-
-export default { inject, register, transferTo, token };
+export {use, add, set}

@@ -8,6 +8,10 @@ import {
   provideSignUpClientUseCase,
   provideStorageServiceImpl,
   provideGetAuthAccountClientUseCase,
+  provideFindAccountsClientUseCase,
+  provideFindOneAccountClientUseCase,
+  provideAccountFacade,
+  provideUpdateAccountClientUseCase,
 } from './providers/account';
 
 export const dataAccessAccountProviders: AngularProvider[] = [
@@ -20,5 +24,10 @@ export const dataAccessAccountProviders: AngularProvider[] = [
   provideSignUpClientUseCase(),
   provideGetAuthAccountClientUseCase(),
 
+  provideFindAccountsClientUseCase(),
+  provideFindOneAccountClientUseCase(),
+  provideUpdateAccountClientUseCase(),
+
   provideAuthFacade(),
+  provideAccountFacade(),
 ];

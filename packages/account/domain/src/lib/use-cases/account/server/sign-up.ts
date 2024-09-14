@@ -1,4 +1,4 @@
-import { Role, SignUp, UseCase } from '@devmx/shared-api-interfaces';
+import { SignUp, UseCase } from '@devmx/shared-api-interfaces';
 import { AccountRepository } from '../../../repositories';
 import { CryptoService } from '../../../services';
 import { Account } from '../../../entities';
@@ -18,7 +18,17 @@ export class SignUpServerUseCase implements UseCase<SignUp, Account> {
     }
 
     const password = this.cryptoService.hash(data.password);
-    const roles: Role[] = ['member'];
+    const roles = {
+      director: false,
+      manager: false,
+      donor: false,
+      heroe: false,
+      leader: false,
+      member: true,
+      neighbor: false,
+      speaker: false,
+      staff: false,
+    };
     const value = { ...data, active: false, password, roles };
     account = await this.accountRepository.create(value);
 

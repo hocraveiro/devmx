@@ -1,0 +1,64 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <section>
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input #firstName matInput formControlName="firstName" autofocus />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Sobrenome</mat-label>
+      <input matInput formControlName="lastName" />
+    </mat-form-field>
+  </section>
+  <section>
+    <mat-form-field>
+      <mat-label>Gênero</mat-label>
+      @if (form.controls.gender?.value === '') {
+      <input matInput formControlName="gender" autofocus />
+      } @else {
+      <mat-select formControlName="gender">
+        @for (gender of form.genders; track gender.value) {
+        <mat-option [value]="gender.value">{{ gender.label }}</mat-option>
+        }
+      </mat-select>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nascimento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthday" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </section>
+
+  <mat-form-field>
+    <mat-label>Minibio</mat-label>
+    <textarea
+      matInput
+      cdkTextareaAutosize
+      formControlName="minibio"
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="6"
+    ></textarea>
+  </mat-form-field>
+
+  <footer>
+    <button
+      type="button"
+      [disabled]="form.enabled"
+      mat-stroked-button
+      (click)="form.enable(); firstName.focus()"
+    >
+      <mat-icon>lock_open</mat-icon>
+      <span>Alterar</span>
+    </button>
+
+    <button [disabled]="form.disabled" mat-flat-button>
+      <mat-icon>cloud_upload</mat-icon>
+      <span>Salvar</span>
+    </button>
+  </footer>
+</form>

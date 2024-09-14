@@ -1,6 +1,12 @@
+import {
+  Page,
+  FindWhere,
+  AuthAccount,
+  FindOptions,
+  Updatable,
+} from '@devmx/shared-api-interfaces';
 import { EnvClient, HttpClient } from '@devmx/shared-data-access';
-import { AuthAccount } from '@devmx/shared-api-interfaces';
-import { AccountService } from '@devmx/account-domain';
+import { Account, AccountService } from '@devmx/account-domain';
 
 export class AccountServiceImpl implements AccountService {
   constructor(
@@ -11,5 +17,26 @@ export class AccountServiceImpl implements AccountService {
   getAuthAccount() {
     const url = `${this.env.api}/accounts/auth`;
     return this.httpClient.get<AuthAccount>(url);
+  }
+
+  find(options: FindOptions<Account>) {
+    const api = `${this.env.api}/accounts/auth`;
+    const where = Object.entries(options.where ?? {});
+    const page = Object.entries(options.page);
+    const params = new URLSearchParams(...page, ...where);
+    const url = `${api}?${params.toString()}`;
+    return this.httpClient.get<Page<Account>>(url, { params });
+  }
+
+  findOne(where: FindWhere<Account>) {
+    const api = `${this.env.api}/accounts/${where.id}`;
+    const properties = Object.entries(where ?? {}) as [string, string][];
+    const params = new URLSearchParams(properties);
+    return this.httpClient.get<Account>(`${api}?${params.toString()}`);
+  }
+
+  update(value: Updatable<Account>) {
+    const url = `${this.env.api}/accounts/${value.id}`;
+    return this.httpClient.patch<Account>(url, value);
   }
 }

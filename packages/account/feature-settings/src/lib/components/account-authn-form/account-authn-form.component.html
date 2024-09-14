@@ -1,0 +1,49 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <section>
+    <mat-form-field>
+      <mat-label>Usuário</mat-label>
+      <input
+        #username
+        matInput
+        autocomplete="username"
+        formControlName="username"
+      />
+      <mat-error>Obrigatório</mat-error>
+    </mat-form-field>
+    <div>
+      <p>O usuário é único e necessário</p>
+    </div>
+  </section>
+  <section>
+    <mat-form-field>
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        type="email"
+        autocomplete="email"
+        formControlName="email"
+      />
+      <mat-error>Endereço inválido</mat-error>
+    </mat-form-field>
+    <div>
+      <p>Para confirmação e recuperação</p>
+    </div>
+  </section>
+
+  <footer>
+    <button
+      type="button"
+      [disabled]="form.enabled"
+      mat-stroked-button
+      (click)="form.enable(); username.focus()"
+    >
+      <mat-icon>lock_open</mat-icon>
+      <span>Alterar</span>
+    </button>
+
+    <button [disabled]="form.disabled" mat-flat-button>
+      <mat-icon>cloud_upload</mat-icon>
+      <span>Salvar</span>
+    </button>
+  </footer>
+</form>

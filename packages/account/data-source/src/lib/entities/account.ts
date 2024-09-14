@@ -56,10 +56,20 @@ export class AccountEntity implements Account {
   @Column({ default: '' })
   birthday?: string;
 
-  @Column({ type: 'simple-array' })
-  roles: Role[];
+  @Column({ type: 'json' })
+  roles: Record<Role, boolean> = {
+    director: false,
+    manager: false,
+    donor: false,
+    heroe: false,
+    leader: false,
+    member: true,
+    neighbor: false,
+    speaker: false,
+    staff: false,
+  };
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean', default: true })
   active: boolean;
 
   @OneToMany(() => PresentationEntity, (presentation) => presentation.account)

@@ -26,6 +26,12 @@
       "@devmx/account-feature-auth": [
         "packages/account/feature-auth/src/index.ts"
       ],
+      "@devmx/account-feature-presentations": [
+        "packages/account/feature-presentations/src/index.ts"
+      ],
+      "@devmx/account-feature-settings": [
+        "packages/account/feature-settings/src/index.ts"
+      ],
       "@devmx/account-feature-shell": [
         "packages/account/feature-shell/src/index.ts"
       ],

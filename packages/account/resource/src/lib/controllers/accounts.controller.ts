@@ -1,4 +1,5 @@
 import { AuthGuard, JwtAuthGuard, Roles } from '@devmx/shared-resource';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   Get,
   Body,
@@ -13,6 +14,8 @@ import {
   NotFoundException,
   BadRequestException,
   ForbiddenException,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -22,6 +25,8 @@ import {
   ApiNotFoundResponse,
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiBody,
+  ApiConsumes,
 } from '@nestjs/swagger';
 import {
   AuthRequest,
@@ -35,6 +40,7 @@ import {
   CreateAccountDto,
   UpdateAccountDto,
 } from '@devmx/account-data-source';
+import 'multer';
 
 @ApiBearerAuth()
 @ApiTags('Contas')
@@ -49,14 +55,15 @@ export class AccountsController {
   }
 
   @Get()
+  @Roles('director', 'manager', 'member')
   @ApiPaginatedResponse(AccountDto)
   async find(@Query() page: PageOptionsDto) {
     return await this.accountFacade.find({ page });
   }
 
   @Get(':id')
-  @ApiOkResponse({ description: 'Account encontrada' })
-  @ApiNotFoundResponse({ description: 'Account não encontrada' })
+  @ApiOkResponse({ description: 'Conta encontrada' })
+  @ApiNotFoundResponse({ description: 'Conta não encontrada' })
   async findOne(@Param('id') id: string) {
     try {
       return await this.accountFacade.findOne({ id });
@@ -67,7 +74,7 @@ export class AccountsController {
 
   @Get(':id/presentations')
   @ApiOkResponse({ description: 'Apresentações' })
-  @ApiNotFoundResponse({ description: 'A não encontrada' })
+  @ApiNotFoundResponse({ description: 'Conta não encontrada' })
   async findPresentations(
     @Param('id') id: string,
     @Query() page: PageOptionsDto
@@ -83,6 +90,7 @@ export class AccountsController {
   @Post()
   @Roles('director', 'staff')
   @ApiCreatedResponse({ description: 'Conta criada com sucesso' })
+  @ApiForbiddenResponse({ description: 'Você não tem permissão' })
   @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
   async create(@Body() createAccount: CreateAccountDto) {
     try {
@@ -92,33 +100,36 @@ export class AccountsController {
     }
   }
 
-  @Patch(':id')
+  @Post(':id/photo')
   @UseGuards(JwtAuthGuard)
-  @Roles('director', 'staff')
-  @ApiCreatedResponse({ description: 'Conta criada com sucesso' })
-  @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
-  async assignRoles(
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: { file: { type: 'string', format: 'binary' } },
+    },
+  })
+  @ApiOkResponse({ description: 'Foto enviada com sucesso' })
+  @ApiForbiddenResponse({ description: 'Você não tem permissão' })
+  @ApiBadRequestResponse({ description: 'Problema ao enviar foto' })
+  async upload(
+    @Request() req: AuthRequest,
     @Param('id') id: string,
-    @Body() assignRoles: AssignRolesDto
+    @UploadedFile() file: Express.Multer.File
   ) {
-    if (id !== assignRoles.id) {
+    if (req.user.id !== id) {
       throw new ForbiddenException();
     }
 
-    try {
-      return await this.accountFacade.update(assignRoles);
-    } catch (err) {
-      throw new BadRequestException(err);
-    }
+    console.log(file);
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'Conta alterada com sucesso' })
+  @ApiForbiddenResponse({ description: 'Você não tem permissão' })
   @ApiBadRequestResponse({ description: 'Problema ao alterar conta' })
-  @ApiForbiddenResponse({
-    description: 'Operação proibida para outros usuários',
-  })
   async update(
     @Request() req: AuthRequest,
     @Param('id') id: string,
@@ -135,14 +146,33 @@ export class AccountsController {
     }
   }
 
+  @Patch(':id/assign-roles')
+  @UseGuards(JwtAuthGuard)
+  @Roles('director', 'staff')
+  @ApiCreatedResponse({ description: 'Conta criada com sucesso' })
+  @ApiForbiddenResponse({ description: 'Você não tem permissão' })
+  @ApiBadRequestResponse({ description: 'Problema ao criar conta' })
+  async assignRoles(
+    @Param('id') id: string,
+    @Body() assignRoles: AssignRolesDto
+  ) {
+    if (id !== assignRoles.id) {
+      throw new ForbiddenException();
+    }
+
+    try {
+      return await this.accountFacade.update(assignRoles);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'Conta apagada' })
   @ApiNotFoundResponse({ description: 'Account não encontrada' })
+  @ApiForbiddenResponse({ description: 'Você não tem permissão' })
   @ApiBadRequestResponse({ description: 'Problema ao apagar conta' })
-  @ApiForbiddenResponse({
-    description: 'Operação proibida para outros usuários',
-  })
   async delete(@Request() req: AuthRequest, @Param('id') id: string) {
     if (req.user.id !== id) {
       throw new ForbiddenException();

@@ -1,5 +1,6 @@
 import { SignIn, AccessToken, UseCase } from '@devmx/shared-api-interfaces';
-import { AuthService, StorageService } from '../../../services';
+import { StorageService } from '../../../services/storage';
+import { AuthService } from '../../../services/auth';
 import { tap } from 'rxjs';
 
 export class SignInClientUseCase implements UseCase<SignIn, AccessToken> {

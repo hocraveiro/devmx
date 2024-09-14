@@ -14,6 +14,27 @@ export const accountFeatureShellRoutes: Route[] = [
   {
     path: '',
     component: AccountFeatureShellComponent,
-    providers: [...dataAccessAccountProviders]
+    providers: [...dataAccessAccountProviders],
+    children: [
+      {
+        path: 'presentations',
+        loadChildren: () =>
+          import('@devmx/account-feature-presentations').then(
+            (m) => m.accountFeaturePresentationsRoutes
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('@devmx/account-feature-settings').then(
+            (m) => m.accountFeatureSettingsRoutes
+          ),
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'settings',
+      },
+    ],
   },
 ];

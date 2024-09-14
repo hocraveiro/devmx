@@ -8,7 +8,11 @@ export class AssignRolesDto implements AssignRoles {
   @IsString()
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: 'array',
+    enum: ['member', 'leader', 'staff', 'heroe', 'speaker', 'director'],
+    default: ['member']
+  })
   @IsArray()
-  roles: Role[];
+  roles: Record<Role, boolean>;
 }

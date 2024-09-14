@@ -1,0 +1,61 @@
+<mat-accordion class="headers-align">
+  <mat-expansion-panel #profilePanel="matExpansionPanel" class="account-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>Perfil</h3>
+      </mat-panel-title>
+      <mat-panel-description>
+        Informações públicas
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <account-profile-form
+      (valueSubmitted)="onProfileSubmitted($event, profilePanel)"
+    />
+  </mat-expansion-panel>
+
+  @if (loader.profile()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <mat-expansion-panel #authnPanel="matExpansionPanel" class="account-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>Autenticação</h3>
+      </mat-panel-title>
+      <mat-panel-description>
+        Acesso ou recuperação
+        <mat-icon>admin_panel_settings</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <account-authn-form
+      (valueSubmitted)="onAuthnSubmitted($event, authnPanel)"
+    />
+  </mat-expansion-panel>
+
+  @if (loader.authn()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <mat-expansion-panel #passwordPanel="matExpansionPanel" class="account-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>Acesso</h3>
+      </mat-panel-title>
+      <mat-panel-description>
+        Redefinir sua senha
+        <mat-icon>lock</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <account-password-form
+      (valueSubmitted)="onPasswordSubmitted($event, passwordPanel)"
+    />
+  </mat-expansion-panel>
+
+  @if (loader.password()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+</mat-accordion>

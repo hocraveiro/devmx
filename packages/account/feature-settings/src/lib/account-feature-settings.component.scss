@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+
+:host {
+  // --mat-app-outline: #eaeaea;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .account-panel {
+    width: 36em;
+
+    // &:not(.mat-expanded),
+    // &:not(.mat-expansion-panel-spacing) {
+    //   margin: 16px 0;
+    //   border-bottom-left-radius: var(--mat-expansion-container-shape);
+    //   border-bottom-right-radius: var(--mat-expansion-container-shape);
+    // }
+
+    &.mat-expansion-panel:not([class*='mat-elevation-z']) {
+      @include mat.elevation(1);
+    }
+
+    // &.mat-expansion-panel-spacing {
+    //   margin: 16px 0;
+    // }
+  }
+
+  .headers-align .mat-expansion-panel-header-title h3 {
+    font-family: 'Mukta', sans-serif;
+    font-weight: 400;
+  }
+
+  .headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.6;
+  }
+
+  .headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+}

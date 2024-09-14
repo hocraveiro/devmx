@@ -1,7 +1,7 @@
-import { Creatable, Role } from '@devmx/shared-api-interfaces';
-import { PresentationDto } from './presentation';
+import { Creatable, Gender, Role } from '@devmx/shared-api-interfaces';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { PresentationDto } from './presentation';
 import { AccountDto } from './account';
 
 export class CreateAccountDto implements Creatable<AccountDto> {
@@ -24,6 +24,23 @@ export class CreateAccountDto implements Creatable<AccountDto> {
 
   @IsString()
   @IsOptional()
+  @ApiPropertyOptional({
+    type: 'enum',
+    enum: [
+      'male',
+      'female',
+      'non-binary',
+      'gender-fluid',
+      'agender',
+      'other',
+      'prefer-not-to-say',
+    ],
+    default: 'prefer-not-to-say',
+  })
+  gender?: Gender;
+
+  @IsString()
+  @IsOptional()
   @ApiPropertyOptional()
   photo?: string;
 
@@ -38,7 +55,7 @@ export class CreateAccountDto implements Creatable<AccountDto> {
   @ApiPropertyOptional()
   birthday?: string;
 
-  roles: Role[];
+  roles: Record<Role, boolean>
 
   active: boolean;
 

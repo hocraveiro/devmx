@@ -1,31 +1,18 @@
-import { Token } from './token';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type {Token} from './token'
 
-export interface Fn {
-  readonly name: string;
-}
+export type Abstract<T> = abstract new (...params: any[]) => T
 
-export interface Type<T> extends Fn {
-  new (...params: unknown[]): T;
-}
+export type Type<T> = new (...params: any[]) => T
 
-export type Abstract<T> = abstract new (...params: unknown[]) => T;
+export type Fn<T> = (...params: any[]) => T
 
-export type ProviderKey<T> = Abstract<T> | Token<T>;
-export type ProviderImpl<T> = T | Type<T>;
+export type Ref<T> = Abstract<T> | Type<T> | Token
 
-export interface Provider<T = unknown> {
-  for: ProviderKey<T>;
-  use?: ProviderImpl<T>;
-  add?: ProviderKey<T>[];
-}
+export type Use<T> = T | Type<T> | Fn<T> | Fn<Promise<T>>
 
-export type UseAs = 'useValue' | 'useClass' | 'useFactory';
-
-export interface ProviderItem<T = unknown> extends Provider<T> {
-  useAs: UseAs;
-}
-
-export interface ProvidedAs<T> {
-  provided: ProviderImpl<T>;
-  useAs: UseAs;
+export interface Provider<T> {
+  ref: Ref<T>
+  use?: Use<T>
+  dep?: Ref<any>[]
 }

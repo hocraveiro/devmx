@@ -6,6 +6,9 @@ import {
   SignInClientUseCase,
   SignUpClientUseCase,
   GetAuthAccountClientUseCase,
+  FindAccountsClientUseCase,
+  FindOneAccountClientUseCase,
+  UpdateAccountClientUseCase,
 } from '@devmx/account-domain';
 
 export function provideSignInClientUseCase(): AngularProvider {
@@ -33,6 +36,36 @@ export function provideGetAuthAccountClientUseCase(): AngularProvider {
     provide: GetAuthAccountClientUseCase,
     useFactory(accountService: AccountService) {
       return new GetAuthAccountClientUseCase(accountService);
+    },
+    deps: [AccountService],
+  };
+}
+
+export function provideFindAccountsClientUseCase(): AngularProvider {
+  return {
+    provide: FindAccountsClientUseCase,
+    useFactory(accountService: AccountService) {
+      return new FindAccountsClientUseCase(accountService);
+    },
+    deps: [AccountService],
+  };
+}
+
+export function provideFindOneAccountClientUseCase(): AngularProvider {
+  return {
+    provide: FindOneAccountClientUseCase,
+    useFactory(accountService: AccountService) {
+      return new FindOneAccountClientUseCase(accountService);
+    },
+    deps: [AccountService],
+  };
+}
+
+export function provideUpdateAccountClientUseCase(): AngularProvider {
+  return {
+    provide: UpdateAccountClientUseCase,
+    useFactory(accountService: AccountService) {
+      return new UpdateAccountClientUseCase(accountService);
     },
     deps: [AccountService],
   };

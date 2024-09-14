@@ -5,4 +5,5 @@ export type Gender =
   | 'gender-fluid'
   | 'agender'
   | 'other'
-  | 'prefer-not-to-say';
+  | 'prefer-not-to-say'
+  | '';

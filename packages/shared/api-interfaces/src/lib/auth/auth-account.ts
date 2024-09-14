@@ -4,6 +4,6 @@ export interface AuthAccount {
   firstName: string;
   username: string;
   email: string;
-  roles: Role[];
+  roles: Record<Role, boolean>;
   id: string;
 }

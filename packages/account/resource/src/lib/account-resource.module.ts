@@ -1,4 +1,5 @@
 import { AuthGuard, JwtAuthGuard, RolesGuard } from '@devmx/shared-resource';
+import { MulterModule } from '@nestjs/platform-express';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -25,6 +26,9 @@ import {
       signOptions: { expiresIn: '3600s' },
     }),
     TypeOrmModule.forFeature(dataSourceAccountEntities),
+    MulterModule.register({
+      dest: './assets',
+    }),
   ],
   providers: [
     provideJwtServiceImpl(JwtService),

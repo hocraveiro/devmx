@@ -2,7 +2,7 @@
   "name": "shared-ui-forms",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/shared/ui-forms/src",
-  "prefix": "lib",
+  "prefix": "devmx",
   "projectType": "library",
   "tags": ["type:ui", "scope:shared"],
   "targets": {

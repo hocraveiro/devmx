@@ -48,7 +48,7 @@ export class AccountDto implements Account {
   birthday?: string;
 
   @Exclude()
-  roles: Role[];
+  roles: Record<Role, boolean>;
 
   @Exclude()
   active: boolean;
