@@ -48,6 +48,7 @@
       "@devmx/shared-data-source": ["packages/shared/data-source/src/index.ts"],
       "@devmx/shared-resource": ["packages/shared/resource/src/index.ts"],
       "@devmx/shared-ui-forms": ["packages/shared/ui-forms/src/index.ts"],
+      "@devmx/shared-ui-global": ["packages/shared/ui-global/src/index.ts"],
       "@devmx/shared-util-data": ["packages/shared/util-data/src/index.ts"]
     }
   },
