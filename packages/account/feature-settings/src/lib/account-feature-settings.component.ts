@@ -100,7 +100,7 @@ export class AccountFeatureSettingsComponent implements AfterViewInit {
 
     this.setLoader(this.loader.password);
 
-    // this.accountFacade.update(value);
+    this.accountFacade.updatePassword(value);
   }
 
   setLoader(writableSignal: WritableSignal<boolean>) {

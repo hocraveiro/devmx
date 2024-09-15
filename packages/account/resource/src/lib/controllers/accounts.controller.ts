@@ -41,6 +41,7 @@ import {
   UpdateAccountDto,
 } from '@devmx/account-data-source';
 import 'multer';
+import { AccountPassword } from '@devmx/shared-api-interfaces';
 
 @ApiBearerAuth()
 @ApiTags('Contas')
@@ -141,6 +142,27 @@ export class AccountsController {
 
     try {
       return await this.accountFacade.update({ ...data, id });
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
+  }
+
+  @Patch(':id/password')
+  @UseGuards(JwtAuthGuard)
+  @ApiCreatedResponse({ description: 'Senha alterada com sucesso' })
+  @ApiForbiddenResponse({ description: 'Você não tem permissão' })
+  @ApiBadRequestResponse({ description: 'Problema ao alterar senha' })
+  async updatePassword(
+    @Request() req: AuthRequest,
+    @Param('id') id: string,
+    @Body() passwords: AccountPassword
+  ) {
+    if (id !== req.user.id) {
+      throw new ForbiddenException();
+    }
+
+    try {
+      return await this.accountFacade.updatePassword(passwords);
     } catch (err) {
       throw new BadRequestException(err);
     }

@@ -58,8 +58,8 @@ export class AccountFeatureShellComponent implements OnInit, OnDestroy {
     {
       path: ['/', 'account', 'presentations'],
       text: 'Apresentações',
-    }
-  ]
+    },
+  ];
 
   constructor() {
     const media = inject(MediaMatcher);
@@ -71,12 +71,15 @@ export class AccountFeatureShellComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.authFacade.user$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(console.log);
 
     this.authFacade.getAuthUser();
+  }
+
+  getOut() {
+    this.authFacade.getOut();
   }
 
   ngOnDestroy() {

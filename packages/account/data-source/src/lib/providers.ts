@@ -2,49 +2,50 @@ import { NestProvider } from '@devmx/shared-api-interfaces';
 import { CryptoServiceImpl } from './services';
 import {
   AccountEntity,
-  PresentationCommentEntity,
   PresentationEntity,
+  PresentationCommentEntity,
   PresentationReactionEntity,
 } from './entities';
 import {
-  provideSignUpServerUseCase,
+  provideJwtStrategy,
   provideAccountRepository,
-  provideAccountServerFacade,
-  provideCreateAccountServerUseCase,
   provideCryptoServiceImpl,
+  provideSignUpServerUseCase,
+  provideAccountServerFacade,
+  provideSignInServerUseCase,
+  provideAuthenticationFacade,
   provideFindAccountsServerUseCase,
+  provideCreateAccountServerUseCase,
   provideFindOneAccountServerUseCase,
   provideRemoveAccountServerUseCase,
   provideUpdateAccountServerUseCase,
-  provideSignInServerUseCase,
-  provideAuthenticationFacade,
-  provideJwtStrategy,
   provideCheckUsernameServerUseCase,
+  provideUpdateAccountPasswordServerUseCase,
 } from './providers/account';
 import {
+  providePresentationRepository,
+  providePresentationServerFacade,
   provideCreatePresentationServerUseCase,
   provideFindOnePresentationServerUseCase,
   provideFindPresentationsServerUseCase,
-  providePresentationRepository,
-  providePresentationServerFacade,
   provideRemovePresentationServerUseCase,
   provideUpdatePresentationServerUseCase,
 } from './providers/presentation';
 import {
+  providePresentationReactionRepository,
+  providePresentationReactionServerFacade,
   provideCountPresentationReactionsServerUseCase,
   provideCreatePresentationReactionServerUseCase,
   provideFindOnePresentationReactionServerUseCase,
   provideFindPresentationReactionsServerUseCase,
-  providePresentationReactionRepository,
-  providePresentationReactionServerFacade,
   provideRemovePresentationReactionServerUseCase,
 } from './providers/presentation-reaction';
 import {
-  provideCreatePresentationCommentServerUseCase,
-  provideFindOnePresentationCommentServerUseCase,
-  provideFindPresentationCommentsServerUseCase,
   providePresentationCommentRepository,
   providePresentationCommentServerFacade,
+  provideFindPresentationCommentsServerUseCase,
+  provideCreatePresentationCommentServerUseCase,
+  provideFindOnePresentationCommentServerUseCase,
   provideRemovePresentationCommentServerUseCase,
   provideUpdatePresentationCommentServerUseCase,
 } from './providers/presentation-comment';
@@ -59,6 +60,7 @@ export const dataSourceAccountProviders: NestProvider[] = [
   provideFindOneAccountServerUseCase(),
   provideUpdateAccountServerUseCase(),
   provideRemoveAccountServerUseCase(),
+  provideUpdateAccountPasswordServerUseCase(),
 
   provideAccountServerFacade(),
 

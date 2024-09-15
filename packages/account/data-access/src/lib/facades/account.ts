@@ -4,6 +4,7 @@ import {
   FindAccountsClientUseCase,
   FindOneAccountClientUseCase,
   UpdateAccountClientUseCase,
+  UpdateAccountPasswordClientUseCase,
 } from '@devmx/account-domain';
 import { take } from 'rxjs';
 import {
@@ -11,6 +12,7 @@ import {
   Updatable,
   FindWhere,
   FindOptions,
+  AccountPassword,
 } from '@devmx/shared-api-interfaces';
 
 interface AccountState {
@@ -33,7 +35,8 @@ export class AccountFacade extends Facade<AccountState> {
   constructor(
     private readonly findAccounts: FindAccountsClientUseCase,
     private readonly findOneAccount: FindOneAccountClientUseCase,
-    private readonly updateAccount: UpdateAccountClientUseCase
+    private readonly updateAccount: UpdateAccountClientUseCase,
+    private readonly updateAccountPassword: UpdateAccountPasswordClientUseCase
   ) {
     super({ accounts: { data: [], meta }, selected: null });
   }
@@ -55,4 +58,11 @@ export class AccountFacade extends Facade<AccountState> {
 
     account$.subscribe((selected) => this.setState({ selected }));
   }
+
+  updatePassword(data: AccountPassword) {
+    const account$ = this.updateAccountPassword.execute(data).pipe(take(1));
+
+    account$.subscribe((selected) => this.setState({ selected }));
+  }
+
 }

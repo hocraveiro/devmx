@@ -3,6 +3,7 @@ import { Facade } from '@devmx/shared-data-access';
 import {
   GetAuthAccountClientUseCase,
   SignInClientUseCase,
+  SignOutClientUseCase,
   SignUpClientUseCase,
 } from '@devmx/account-domain';
 import { skip, take } from 'rxjs';
@@ -20,7 +21,8 @@ export class AuthFacade extends Facade<AuthState> {
   constructor(
     private readonly signUpUseCase: SignUpClientUseCase,
     private readonly signInUseCase: SignInClientUseCase,
-    private readonly getAuthAccountUseCase: GetAuthAccountClientUseCase
+    private readonly getAuthAccountUseCase: GetAuthAccountClientUseCase,
+    private readonly signOut: SignOutClientUseCase
   ) {
     super({ user: null, authenticated: false });
   }
@@ -48,5 +50,11 @@ export class AuthFacade extends Facade<AuthState> {
         this.setState({ authenticated });
       }
     });
+  }
+
+  getOut() {
+    const account$ = this.signOut.execute().pipe(take(1));
+
+    account$.subscribe((user) => this.setState({ user }));
   }
 }

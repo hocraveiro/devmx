@@ -1,18 +1,20 @@
 import {
   Account,
+  Presentation,
   FindAccountsServerUseCase,
   CreateAccountServerUseCase,
   FindOneAccountServerUseCase,
   UpdateAccountServerUseCase,
   RemoveAccountServerUseCase,
   FindPresentationsServerUseCase,
-  Presentation,
+  UpdateAccountPasswordServerUseCase,
 } from '@devmx/account-domain';
 import {
   Creatable,
-  FindOptions,
   FindWhere,
   Updatable,
+  FindOptions,
+  AccountPassword,
 } from '@devmx/shared-api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { AccountDto } from '../dtos';
@@ -24,7 +26,8 @@ export class AccountFacade {
     private readonly findOneAccountUseCase: FindOneAccountServerUseCase,
     private readonly updateAccountUseCase: UpdateAccountServerUseCase,
     private readonly removeAccountUseCase: RemoveAccountServerUseCase,
-    private readonly findPresentationsUseCase: FindPresentationsServerUseCase
+    private readonly findPresentationsUseCase: FindPresentationsServerUseCase,
+    private readonly updateAccountPasswordUseCase: UpdateAccountPasswordServerUseCase
   ) {}
 
   async create(data: Creatable<Account>) {
@@ -49,6 +52,11 @@ export class AccountFacade {
 
   async update(data: Updatable<Account>) {
     const account = await this.updateAccountUseCase.execute(data);
+    return plainToInstance(AccountDto, account);
+  }
+
+  async updatePassword(data: AccountPassword) {
+    const account = await this.updateAccountPasswordUseCase.execute(data);
     return plainToInstance(AccountDto, account);
   }
 

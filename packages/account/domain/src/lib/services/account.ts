@@ -4,6 +4,7 @@ import {
   FindWhere,
   AuthAccount,
   FindOptions,
+  AccountPassword,
 } from '@devmx/shared-api-interfaces';
 import { Observable } from 'rxjs';
 import { Account } from '../entities';
@@ -16,4 +17,6 @@ export abstract class AccountService {
   abstract findOne(options: FindWhere<Account>): Observable<Account | null>;
 
   abstract update(value: Updatable<Account>): Observable<Account>;
+
+  abstract updatePassword(value: AccountPassword): Observable<Account>;
 }

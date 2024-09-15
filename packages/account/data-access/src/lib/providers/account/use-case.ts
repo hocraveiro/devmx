@@ -9,6 +9,8 @@ import {
   FindAccountsClientUseCase,
   FindOneAccountClientUseCase,
   UpdateAccountClientUseCase,
+  UpdateAccountPasswordClientUseCase,
+  SignOutClientUseCase,
 } from '@devmx/account-domain';
 
 export function provideSignInClientUseCase(): AngularProvider {
@@ -68,5 +70,25 @@ export function provideUpdateAccountClientUseCase(): AngularProvider {
       return new UpdateAccountClientUseCase(accountService);
     },
     deps: [AccountService],
+  };
+}
+
+export function provideUpdateAccountPasswordClientUseCase(): AngularProvider {
+  return {
+    provide: UpdateAccountPasswordClientUseCase,
+    useFactory(accountService: AccountService) {
+      return new UpdateAccountPasswordClientUseCase(accountService);
+    },
+    deps: [AccountService],
+  };
+}
+
+export function provideSignOutClientUseCase(): AngularProvider {
+  return {
+    provide: SignOutClientUseCase,
+    useFactory(storageService: StorageService, accountService: AccountService) {
+      return new SignOutClientUseCase(storageService, accountService);
+    },
+    deps: [StorageService, AccountService],
   };
 }

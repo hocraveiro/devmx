@@ -4,6 +4,12 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="account-app-name">devmx</h1>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button (click)="getOut()">
+      <mat-icon>logout</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container
@@ -18,7 +24,9 @@
     >
       <mat-nav-list>
         @for (item of navigation; track item) { @if (item.path) {
-        <a mat-list-item [routerLink]="item.path" routerLinkActive="active">{{ item.text }}</a>
+        <a mat-list-item [routerLink]="item.path" routerLinkActive="active">{{
+          item.text
+        }}</a>
         } @else if (item.icon) {
         <div mat-subheader>{{ item.text }}</div>
         } }

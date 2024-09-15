@@ -12,6 +12,8 @@ import {
   provideFindOneAccountClientUseCase,
   provideAccountFacade,
   provideUpdateAccountClientUseCase,
+  provideUpdateAccountPasswordClientUseCase,
+  provideSignOutClientUseCase,
 } from './providers/account';
 
 export const dataAccessAccountProviders: AngularProvider[] = [
@@ -27,6 +29,8 @@ export const dataAccessAccountProviders: AngularProvider[] = [
   provideFindAccountsClientUseCase(),
   provideFindOneAccountClientUseCase(),
   provideUpdateAccountClientUseCase(),
+  provideUpdateAccountPasswordClientUseCase(),
+  provideSignOutClientUseCase(),
 
   provideAuthFacade(),
   provideAccountFacade(),

@@ -8,6 +8,7 @@ import {
   RemoveAccountServerUseCase,
   SignInServerUseCase,
   SignUpServerUseCase,
+  UpdateAccountPasswordServerUseCase,
   UpdateAccountServerUseCase,
 } from '@devmx/account-domain';
 
@@ -20,7 +21,8 @@ export function provideAccountServerFacade() {
       findOneAccount: FindOneAccountServerUseCase,
       updateAccount: UpdateAccountServerUseCase,
       removeAccount: RemoveAccountServerUseCase,
-      findPresentations: FindPresentationsServerUseCase
+      findPresentations: FindPresentationsServerUseCase,
+      updateAccountPassword: UpdateAccountPasswordServerUseCase,
     ) {
       return new AccountFacade(
         createAccount,
@@ -28,7 +30,8 @@ export function provideAccountServerFacade() {
         findOneAccount,
         updateAccount,
         removeAccount,
-        findPresentations
+        findPresentations,
+        updateAccountPassword
       );
     },
     inject: [
@@ -38,6 +41,7 @@ export function provideAccountServerFacade() {
       UpdateAccountServerUseCase,
       RemoveAccountServerUseCase,
       FindPresentationsServerUseCase,
+      UpdateAccountPasswordServerUseCase
     ],
   };
 }

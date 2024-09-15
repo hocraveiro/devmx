@@ -3,10 +3,12 @@ import { AccountFacade, AuthFacade } from '../../facades';
 import {
   SignInClientUseCase,
   SignUpClientUseCase,
+  SignOutClientUseCase,
   GetAuthAccountClientUseCase,
   FindAccountsClientUseCase,
   FindOneAccountClientUseCase,
   UpdateAccountClientUseCase,
+  UpdateAccountPasswordClientUseCase,
 } from '@devmx/account-domain';
 
 export function provideAuthFacade(): AngularProvider {
@@ -15,14 +17,16 @@ export function provideAuthFacade(): AngularProvider {
     useFactory(
       signUp: SignUpClientUseCase,
       signIn: SignInClientUseCase,
-      getAuthAccount: GetAuthAccountClientUseCase
+      getAuthAccount: GetAuthAccountClientUseCase,
+      signOut: SignOutClientUseCase
     ) {
-      return new AuthFacade(signUp, signIn, getAuthAccount);
+      return new AuthFacade(signUp, signIn, getAuthAccount, signOut);
     },
     deps: [
       SignUpClientUseCase,
       SignInClientUseCase,
       GetAuthAccountClientUseCase,
+      SignOutClientUseCase,
     ],
   };
 }
@@ -33,14 +37,21 @@ export function provideAccountFacade(): AngularProvider {
     useFactory(
       findAccounts: FindAccountsClientUseCase,
       findOneAccount: FindOneAccountClientUseCase,
-      updateAccount: UpdateAccountClientUseCase
+      updateAccount: UpdateAccountClientUseCase,
+      updateAccountPassword: UpdateAccountPasswordClientUseCase
     ) {
-      return new AccountFacade(findAccounts, findOneAccount, updateAccount);
+      return new AccountFacade(
+        findAccounts,
+        findOneAccount,
+        updateAccount,
+        updateAccountPassword
+      );
     },
     deps: [
       FindAccountsClientUseCase,
       FindOneAccountClientUseCase,
       UpdateAccountClientUseCase,
+      UpdateAccountPasswordClientUseCase,
     ],
   };
 }

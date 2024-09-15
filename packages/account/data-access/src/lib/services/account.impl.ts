@@ -4,6 +4,7 @@ import {
   AuthAccount,
   FindOptions,
   Updatable,
+  AccountPassword,
 } from '@devmx/shared-api-interfaces';
 import { EnvClient, HttpClient } from '@devmx/shared-data-access';
 import { Account, AccountService } from '@devmx/account-domain';
@@ -37,6 +38,11 @@ export class AccountServiceImpl implements AccountService {
 
   update(value: Updatable<Account>) {
     const url = `${this.env.api}/accounts/${value.id}`;
+    return this.httpClient.patch<Account>(url, value);
+  }
+
+  updatePassword(value: AccountPassword) {
+    const url = `${this.env.api}/accounts/${value.id}/password`;
     return this.httpClient.patch<Account>(url, value);
   }
 }

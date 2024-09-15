@@ -10,6 +10,7 @@ import {
   SignUpServerUseCase,
   SignInServerUseCase,
   CheckUsernameServerUseCase,
+  UpdateAccountPasswordServerUseCase,
 } from '@devmx/account-domain';
 import { EnvServer } from '@devmx/shared-data-source';
 
@@ -95,5 +96,15 @@ export function provideCheckUsernameServerUseCase() {
       return new CheckUsernameServerUseCase(repository);
     },
     inject: [AccountRepository],
+  };
+}
+
+export function provideUpdateAccountPasswordServerUseCase() {
+  return {
+    provide: UpdateAccountPasswordServerUseCase,
+    useFactory(repository: AccountRepository, crypto: CryptoService) {
+      return new UpdateAccountPasswordServerUseCase(repository, crypto);
+    },
+    inject: [AccountRepository, CryptoService],
   };
 }
