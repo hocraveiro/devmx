@@ -27,6 +27,7 @@ import {
   AccountProfileFormComponent,
   AccountPasswordFormComponent,
 } from './components';
+import { Messenger } from '@devmx/shared-ui-global';
 
 @Component({
   selector: 'account-feature-settings',
@@ -46,12 +47,13 @@ import {
   standalone: true,
 })
 export class AccountFeatureSettingsComponent implements AfterViewInit {
+  accountFacade = inject(AccountFacade);
+  authFacade = inject(AuthFacade);
+  messenger = inject(Messenger);
+
   password = viewChild(AccountPasswordFormComponent);
   profile = viewChild(AccountProfileFormComponent);
   authn = viewChild(AccountAuthnFormComponent);
-
-  authFacade = inject(AuthFacade);
-  accountFacade = inject(AccountFacade);
 
   loader = {
     profile: signal(false),

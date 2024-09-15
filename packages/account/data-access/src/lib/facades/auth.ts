@@ -6,7 +6,7 @@ import {
   SignOutClientUseCase,
   SignUpClientUseCase,
 } from '@devmx/account-domain';
-import { skip, take } from 'rxjs';
+import { catchError, skip, take } from 'rxjs';
 
 interface AuthState {
   user: AuthAccount | null;
@@ -30,13 +30,15 @@ export class AuthFacade extends Facade<AuthState> {
   signUp(data: SignUp) {
     const signUp$ = this.signUpUseCase.execute(data).pipe(take(1));
 
-    signUp$.subscribe();
+    signUp$.pipe(catchError(this.emitError)).subscribe();
   }
 
   signIn(data: SignIn) {
     const signIn$ = this.signInUseCase.execute(data).pipe(take(1));
 
-    signIn$.subscribe(() => this.getAuthUser());
+    signIn$
+      .pipe(catchError(this.emitError))
+      .subscribe(() => this.getAuthUser());
   }
 
   getAuthUser() {

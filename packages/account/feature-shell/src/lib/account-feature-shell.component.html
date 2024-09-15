@@ -1,16 +1,13 @@
 <div class="account-container" [class.account-is-mobile]="mobileQuery.matches">
-  <mat-toolbar class="account-toolbar">
-    <button mat-icon-button (click)="snav.toggle()">
+  <account-toolbar>
+    <button mat-icon-button class="nav-button" (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="account-app-name">devmx</h1>
 
-    <span class="spacer"></span>
-
-    <button mat-icon-button (click)="getOut()">
+    <button mat-icon-button class="out-button" (click)="getOut()">
       <mat-icon>logout</mat-icon>
     </button>
-  </mat-toolbar>
+  </account-toolbar>
 
   <mat-sidenav-container
     class="account-sidenav-container"

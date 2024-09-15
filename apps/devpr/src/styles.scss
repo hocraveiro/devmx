@@ -26,6 +26,10 @@ body {
   margin: 0;
   font-family: Mukta, sans-serif;
 
+  .error {
+    background-color: mat.get-theme-color(theme.$light-theme, error, 50);
+  }
+
   .spacer {
     flex: 1 1 auto;
   }

@@ -4,6 +4,7 @@ import { SignIn, SignUp } from '@devmx/shared-api-interfaces';
 import { AuthFacade } from '@devmx/account-data-access';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { Messenger } from '@devmx/shared-ui-global';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -33,9 +34,19 @@ export class AccountFeatureAuthComponent implements OnInit {
 
   destroyRef = inject(DestroyRef);
 
+  messenger = inject(Messenger);
+
   router = inject(Router);
 
   ngOnInit() {
+    this.authFacade.error$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((message) => {
+        if (message) {
+          this.messenger.open(message, 25000, 'error');
+        }
+      });
+
     this.authFacade.authenticated$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((authenticated) => {

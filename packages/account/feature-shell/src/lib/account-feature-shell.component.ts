@@ -1,12 +1,12 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LayoutModule, MediaMatcher } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthFacade } from '@devmx/account-data-access';
+import { ToolbarComponent } from './components';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -28,7 +28,7 @@ import {
     CommonModule,
     MatExpansionModule,
     MatSidenavModule,
-    MatToolbarModule,
+    ToolbarComponent,
     MatButtonModule,
     MatIconModule,
     MatListModule,
