@@ -1,0 +1,26 @@
+{
+  "name": "events-data-access",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/events/data-access/src",
+  "projectType": "library",
+  "tags": ["type:data-source"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/events/data-access",
+        "main": "packages/events/data-access/src/index.ts",
+        "tsConfig": "packages/events/data-access/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/events/data-access/jest.config.ts"
+      }
+    }
+  }
+}

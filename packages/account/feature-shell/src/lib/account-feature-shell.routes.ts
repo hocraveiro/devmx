@@ -24,6 +24,13 @@ export const accountFeatureShellRoutes: Route[] = [
           ),
       },
       {
+        path: 'events',
+        loadChildren: () =>
+          import('@devmx/feature-events').then(
+            (m) => m.accountFeatureSettingsRoutes
+          ),
+      },
+      {
         path: 'settings',
         loadChildren: () =>
           import('@devmx/account-feature-settings').then(

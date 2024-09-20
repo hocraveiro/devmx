@@ -23,6 +23,10 @@
         "events-data-source": {
           "name": "events-data-source",
           "config": "packages/events/data-source/project.json"
+        },
+        "events-data-access": {
+          "name": "events-data-access",
+          "config": "packages/events/data-access/project.json"
         }
       },
       "resources": {

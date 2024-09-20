@@ -37,9 +37,11 @@
       ],
       "@devmx/account-resource": ["packages/account/resource/src/index.ts"],
       "@devmx/events-api": ["packages/events/api/src/index.ts"],
+      "@devmx/events-data-access": ["packages/events/data-access/src/index.ts"],
       "@devmx/events-data-source": ["packages/events/data-source/src/index.ts"],
       "@devmx/events-domain": ["packages/events/domain/src/index.ts"],
       "@devmx/events-resource": ["packages/events/resource/src/index.ts"],
+      "@devmx/feature-events": ["packages/events/feature-events/src/index.ts"],
       "@devmx/plugin": ["tools/plugin/src/index.ts"],
       "@devmx/shared-api-interfaces": [
         "packages/shared/api-interfaces/src/index.ts"

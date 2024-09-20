@@ -58,6 +58,10 @@ export class AccountFeatureShellComponent implements OnInit, OnDestroy {
     {
       path: ['/', 'account', 'presentations'],
       text: 'Apresentações',
+    },
+    {
+      path: ['/', 'account', 'events'],
+      text: 'Eventos',
     }
   ]
 
